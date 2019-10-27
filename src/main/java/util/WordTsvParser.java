@@ -10,9 +10,9 @@ import java.util.ArrayList;
 
 public class WordTsvParser extends BasicTsvParser {
     ArrayList<String> wordList;
-    private BufferedReader bufferedReader = null;
-    private FileReader fileReader = null;
-    private TsvParser tsvParser = null;
+    private BufferedReader bufferedReader;
+    private FileReader fileReader;
+    private TsvParser tsvParser;
 
     public WordTsvParser() {
         super();
