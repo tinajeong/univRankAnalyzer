@@ -15,23 +15,12 @@ public class BasicTsvParser {
 
     public void readTSV()
     {
-        TsvParserSettings settings = new TsvParserSettings();
-        settings.getFormat().setLineSeparator("\n");
 
-        TsvParser parser = new TsvParser(settings);
-
-        allRows = parser.parseAll(new File("output-onlinerandomtools.tsv"));
     }
 
     public void printTSV()
     {
-        for(String[] strings: allRows)
-        {
-            for(String string: strings) {
-                System.out.print(string+"\t");
-            }
-            System.out.println();
-        }
+
     }
 }
 
