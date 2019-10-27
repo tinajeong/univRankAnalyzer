@@ -1,7 +1,6 @@
 package main.java;
 
-import main.java.util.BasicTsvParser;
-import main.java.util.IOUtil;
+import main.java.util.WordTsvParser;
 
 import java.io.IOException;
 
@@ -11,9 +10,14 @@ public class Main {
         System.out.println("======================");
 //        new IOUtil().testIOUtil();
 
-        BasicTsvParser basicTsvParser = new BasicTsvParser();
-        basicTsvParser.readTSV();
-        basicTsvParser.printTSV();
+//        BasicTsvParser basicTsvParser = new BasicTsvParser();
+//        basicTsvParser.readTSV();
+//        basicTsvParser.printTSV();
+
+        WordTsvParser wordTsvParser = new WordTsvParser();
+        wordTsvParser.readTSV();
+        wordTsvParser.printTSV();
+
     }
 }
 
