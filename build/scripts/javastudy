@@ -64,7 +64,7 @@ case "`uname`" in
     ;;
 esac
 
-CLASSPATH=$APP_HOME/lib/javastudy-1.0-SNAPSHOT.jar:$APP_HOME/lib/commons-io-2.6.jar
+CLASSPATH=$APP_HOME/lib/javastudy-1.0-SNAPSHOT.jar:$APP_HOME/lib/commons-io-2.6.jar:$APP_HOME/lib/univocity-parsers-2.8.3.jar
 
 # Determine the Java command to use to start the JVM.
 if [ -n "$JAVA_HOME" ] ; then

@@ -63,7 +63,7 @@ set CMD_LINE_ARGS=%*
 :execute
 @rem Setup the command line
 
-set CLASSPATH=%APP_HOME%\lib\javastudy-1.0-SNAPSHOT.jar;%APP_HOME%\lib\commons-io-2.6.jar
+set CLASSPATH=%APP_HOME%\lib\javastudy-1.0-SNAPSHOT.jar;%APP_HOME%\lib\commons-io-2.6.jar;%APP_HOME%\lib\univocity-parsers-2.8.3.jar
 
 @rem Execute javastudy
 "%JAVA_EXE%" %DEFAULT_JVM_OPTS% %JAVA_OPTS% %JAVASTUDY_OPTS%  -classpath "%CLASSPATH%" main.java.Main %CMD_LINE_ARGS%
