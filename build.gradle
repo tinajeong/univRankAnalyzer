@@ -1,12 +1,15 @@
 plugins {
     id 'java'
-    id 'application'
+    id 'application' // 애플리케이션을 만들 수 있도록 하는 플러그인을 가져오겠다
 }
+
+// executable file name
 group 'javastudy'
 version '1.0-SNAPSHOT'
 
-sourceCompatibility = 1.8
+sourceCompatibility = 1.8 // jdk version
 
+// 어플리케이션 플러그인에서 main 클래스가 있는 path를 명시
 application {
     mainClassName = 'main.java.Main'
 }
@@ -25,10 +28,12 @@ sourceSets {
     }
 }
 
+// 오픈소스 라이브러리 리포지토리
 repositories {
     mavenCentral()
 }
 
+// 내가 쓰고 싶은 라이브러리를 추가
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     // https://mvnrepository.com/artifact/commons-io/commons-io
@@ -36,6 +41,7 @@ dependencies {
 
     // https://mvnrepository.com/artifact/com.univocity/univocity-parsers
     compile group: 'com.univocity', name: 'univocity-parsers', version: '2.8.3'
+
 
 
 }

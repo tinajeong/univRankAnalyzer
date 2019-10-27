@@ -9,18 +9,27 @@ import java.util.List;
 
 public class BasicTsvParser {
     List<String[]> allRows;
+
     public BasicTsvParser() {
         allRows = new ArrayList<>();
     }
 
-    public void readTSV()
-    {
+    public void readTSV() {
+        TsvParserSettings settings = new TsvParserSettings();
+        settings.getFormat().setLineSeparator("\n");
 
+        // creates a TSV parser
+        TsvParser parser = new TsvParser(settings);
+
+        // parses all rows in one go.
+        allRows = parser.parseAll(new File("output-onlinerandomtools.tsv"));
     }
 
-    public void printTSV()
-    {
-
+    public void printTSV() {
+        for(String[] arr1 : allRows)
+            for(String arr2 : arr1){
+                System.out.println(arr2);
+            }
     }
 }
 
