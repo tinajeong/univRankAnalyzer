@@ -1,6 +1,6 @@
 package main.java;
 
-import main.java.util.WordTsvParser;
+import main.java.util.tsv.WordTsvParser;
 
 import java.io.IOException;
 

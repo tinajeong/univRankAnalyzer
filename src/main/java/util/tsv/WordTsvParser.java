@@ -1,4 +1,4 @@
-package main.java.util;
+package main.java.util.tsv;
 
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;

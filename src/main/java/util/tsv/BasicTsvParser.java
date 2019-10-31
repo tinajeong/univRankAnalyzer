@@ -1,4 +1,4 @@
-package main.java.util;
+package main.java.util.tsv;
 
 import java.util.ArrayList;
 import java.util.List;
