@@ -57,5 +57,9 @@ public class WordTsvParser extends BasicTsvParser {
         {
             System.out.println(string);
         }
+
+        wordList.forEach(s->{
+            System.out.println(s);
+        });
     }
 }
