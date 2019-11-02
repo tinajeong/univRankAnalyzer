@@ -3,6 +3,7 @@ package main.java.util.tsv;
 import com.univocity.parsers.tsv.TsvWriter;
 import com.univocity.parsers.tsv.TsvWriterSettings;
 import main.java.data.CrawlingConfig;
+import main.java.data.TSVConfig;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
@@ -20,7 +21,7 @@ public class BasicTsvWriter {
             tsvWriterSettings = new TsvWriterSettings();
             tsvWriterSettings.getFormat().setLineSeparator("\n");
 
-            fileWriter = new FileWriter(CrawlingConfig.crawledTsvPath);
+            fileWriter = new FileWriter(TSVConfig.crawledTsvPath);
             bufferedWriter = new BufferedWriter(fileWriter);
 
             tsvWriter = new TsvWriter(bufferedWriter, tsvWriterSettings);
