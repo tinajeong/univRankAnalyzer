@@ -2,6 +2,7 @@ package main.java.util.tsv;
 
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
+import main.java.data.TSVConfig;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class BasicTsvParser {
 
         TsvParser parser = new TsvParser(settings);
 
-        allRows = parser.parseAll(new File("output-onlinerandomtools.tsv"));
+        allRows = parser.parseAll(new File(TSVConfig.wordTsvPath));
     }
 
     public void printTSV()

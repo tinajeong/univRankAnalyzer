@@ -2,6 +2,7 @@ package main.java.util.tsv;
 
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
+import main.java.data.TSVConfig;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -9,7 +10,7 @@ import java.io.FileReader;
 import java.util.ArrayList;
 
 public class WordTsvParser extends BasicTsvParser {
-    ArrayList<String> wordList;
+    private ArrayList<String> wordList;
     private BufferedReader bufferedReader;
     private FileReader fileReader;
     private TsvParser tsvParser;
@@ -27,7 +28,7 @@ public class WordTsvParser extends BasicTsvParser {
     @Override
     public void readTSV() {
         try {
-            fileReader = new FileReader("output-onlinerandomtools.tsv");
+            fileReader = new FileReader(TSVConfig.wordTsvPath);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();
