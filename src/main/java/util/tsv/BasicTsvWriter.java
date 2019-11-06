@@ -32,7 +32,6 @@ public class BasicTsvWriter {
 
     }
 
-    public boolean writeTSV(ArrayList<UnivRankDTO> crawledList) {
-        return false;
+    public void writeTSV(ArrayList<Object> crawledList) {
     }
 }

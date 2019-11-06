@@ -4,6 +4,8 @@ import main.java.data.TSVConfig;
 import main.java.data.UnivRankDTO;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class UnivRankTsvWriter extends BasicTsvWriter {
     public UnivRankTsvWriter() {
@@ -11,18 +13,21 @@ public class UnivRankTsvWriter extends BasicTsvWriter {
     }
 
     @Override
-    public boolean writeTSV(ArrayList<UnivRankDTO> crawledList) {
-        if(crawledList != null) {
+    public void writeTSV(ArrayList<Object> crawledList) throws NullPointerException {
+        List<UnivRankDTO> univRankDTOList = null;
 
-            tsvWriter.writeHeaders(TSVConfig.ColumnUnivRank,TSVConfig.ColumnUnivName,TSVConfig.ColumnUnivCountry);
+        if (crawledList.get(0) instanceof UnivRankDTO)
+            univRankDTOList = crawledList.stream().map(o -> (UnivRankDTO) o).collect(Collectors.toList());
 
-            for(UnivRankDTO univRankDTO: crawledList) {
-                tsvWriter.writeRow(univRankDTO.getRank(),univRankDTO.getUnivName(),univRankDTO.getCountry());
+        if (crawledList != null) {
+
+            tsvWriter.writeHeaders(TSVConfig.ColumnUnivRank, TSVConfig.ColumnUnivName, TSVConfig.ColumnUnivCountry);
+
+            for (UnivRankDTO univRankDTO : univRankDTOList) {
+                tsvWriter.writeRow(univRankDTO.getRank(), univRankDTO.getUnivName(), univRankDTO.getCountry());
             }
 
             tsvWriter.close();
-            return true;
         }
-        return false;
     }
 }
