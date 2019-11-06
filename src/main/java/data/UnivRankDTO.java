@@ -1,14 +1,14 @@
 package main.java.data;
 
-public class UnivRank {
+public class UnivRankDTO {
     String univName;
     String country;
     Long rank;
 
-    public UnivRank() {
+    public UnivRankDTO() {
     }
 
-    public UnivRank(String univName, String country, Long rank) {
+    public UnivRankDTO(String univName, String country, Long rank) {
         this.univName = univName;
         this.country = country;
         this.rank = rank;
@@ -37,4 +37,5 @@ public class UnivRank {
     public void setRank(Long rank) {
         this.rank = rank;
     }
+
 }

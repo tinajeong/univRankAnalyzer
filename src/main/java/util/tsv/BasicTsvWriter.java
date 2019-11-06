@@ -2,19 +2,19 @@ package main.java.util.tsv;
 
 import com.univocity.parsers.tsv.TsvWriter;
 import com.univocity.parsers.tsv.TsvWriterSettings;
-import main.java.data.CrawlingConfig;
 import main.java.data.TSVConfig;
+import main.java.data.UnivRankDTO;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.util.ArrayList;
 
 public class BasicTsvWriter {
-    private TsvWriterSettings tsvWriterSettings;
-    private TsvWriter tsvWriter;
-    private BufferedWriter bufferedWriter;
-    private FileWriter fileWriter;
+    public TsvWriterSettings tsvWriterSettings;
+    public TsvWriter tsvWriter;
+    public BufferedWriter bufferedWriter;
+    public FileWriter fileWriter;
 
     public BasicTsvWriter() {
         try {
@@ -32,9 +32,7 @@ public class BasicTsvWriter {
 
     }
 
-    public boolean writeTSV(List<Object[]> crawledList)
-    {
-        return true;
+    public boolean writeTSV(ArrayList<UnivRankDTO> crawledList) {
+        return false;
     }
-
 }
