@@ -10,7 +10,6 @@ sourceCompatibility = 1.8
 application {
     mainClassName = 'main.java.Main'
 }
-
 sourceSets {
     main {
         java {
@@ -27,8 +26,9 @@ sourceSets {
 
 repositories {
     mavenCentral()
-}
+    maven { url 'http://download.oracle.com/maven' }
 
+}
 dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
     // https://mvnrepository.com/artifact/commons-io/commons-io
@@ -39,5 +39,9 @@ dependencies {
 
     // https://mvnrepository.com/artifact/org.jsoup/jsoup
     compile group: 'org.jsoup', name: 'jsoup', version: '1.12.1'
+
+    // https://mvnrepository.com/artifact/edu.uci.ics/crawler4j
+    compile group: 'edu.uci.ics', name: 'crawler4j', version: '4.4.0'
+
 
 }
