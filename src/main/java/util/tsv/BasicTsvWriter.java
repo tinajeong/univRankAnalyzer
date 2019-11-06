@@ -32,6 +32,6 @@ public class BasicTsvWriter {
 
     }
 
-    public void writeTSV(ArrayList<Object> crawledList) {
+    public void writeTSV(ArrayList<UnivRankDTO> crawledList) {
     }
 }

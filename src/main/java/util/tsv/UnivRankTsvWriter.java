@@ -13,17 +13,12 @@ public class UnivRankTsvWriter extends BasicTsvWriter {
     }
 
     @Override
-    public void writeTSV(ArrayList<Object> crawledList) throws NullPointerException {
-        List<UnivRankDTO> univRankDTOList = null;
-
-        if (crawledList.get(0) instanceof UnivRankDTO)
-            univRankDTOList = crawledList.stream().map(o -> (UnivRankDTO) o).collect(Collectors.toList());
-
+    public void writeTSV(ArrayList<UnivRankDTO> crawledList) throws NullPointerException {
         if (crawledList != null) {
 
             tsvWriter.writeHeaders(TSVConfig.ColumnUnivRank, TSVConfig.ColumnUnivName, TSVConfig.ColumnUnivCountry);
 
-            for (UnivRankDTO univRankDTO : univRankDTOList) {
+            for (UnivRankDTO univRankDTO : crawledList) {
                 tsvWriter.writeRow(univRankDTO.getRank(), univRankDTO.getUnivName(), univRankDTO.getCountry());
             }
 

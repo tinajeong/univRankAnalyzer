@@ -5,6 +5,7 @@ import main.java.util.tsv.UnivRankTsvWriter;
 import main.java.util.tsv.WordTsvParser;
 
 import java.io.IOException;
+import java.util.List;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -25,8 +26,7 @@ public class Main {
 
         UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
 
-        if(!univRankTsvWriter.writeTSV(univRankCrawler.getUnivList()))
-            System.out.println("writing crawling result failed");
+        univRankTsvWriter.writeTSV(univRankCrawler.getUnivList());
     }
 }
 
