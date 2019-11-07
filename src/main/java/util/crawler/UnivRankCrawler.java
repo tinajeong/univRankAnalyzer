@@ -31,25 +31,7 @@ public class UnivRankCrawler implements Crawler {
     }
 
     public void crawlingUnivRankPage(String url) throws IOException {
-        Document doc = Jsoup.connect(url)
-                .header("User-Agent", "Mozilla/5.0")
-                .timeout(5000)
-                .get();
 
-        Elements elements = doc.select("#resultsMain .sep");
-//        System.out.println(elements);
-
-        for(Element element:elements)
-        {
-            UnivRankDTO univRankDTO = new UnivRankDTO();
-            univRankDTO.setRank(Long.valueOf(element.child(1).text().substring(1)));
-            univRankDTO.setUnivName(element.child(2).select(".h-taut a").text());
-            univRankDTO.setCountry(element.child(2).select(".t-taut span").first().text());
-            univList.add(univRankDTO);
-//            System.out.println(element.child(1).text());
-//            System.out.println(element.child(2).select(".h-taut a").text());
-//            System.out.println(element.child(2).select(".t-taut span").first().text());
-        }
     }
 
     public void traverseUnivList()
