@@ -10,6 +10,8 @@ import org.jsoup.select.Elements;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import static java.lang.Thread.sleep;
+
 public class UnivRankCrawler implements Crawler {
     ArrayList<UnivRankDTO> univList;
 
@@ -26,8 +28,13 @@ public class UnivRankCrawler implements Crawler {
     }
 
     @Override
-    public void crawlingSite() throws IOException {
-        crawlingUnivRankPage(CrawlingConfig.univUrl);
+    public void crawlingSite() throws IOException, InterruptedException {
+        for (int i = 1; i <= 10; i++) {
+            String pageUrl = CrawlingConfig.univUrl + "&page=" + i;
+            System.out.println(pageUrl);
+            crawlingUnivRankPage(pageUrl);
+            sleep(3000);
+        }
     }
 
     public void crawlingUnivRankPage(String url) throws IOException {
@@ -37,12 +44,12 @@ public class UnivRankCrawler implements Crawler {
                 .get();
 
         Elements elements = doc.select("#resultsMain .sep");
-//        System.out.println(elements);
+        System.out.println(elements);
 
-        for(Element element:elements)
-        {
+        for (Element element : elements) {
             UnivRankDTO univRankDTO = new UnivRankDTO();
-            univRankDTO.setRank(Long.valueOf(element.child(1).text().substring(1)));
+            Long rank = Long.parseLong(element.child(1).text().substring(1).replaceAll("[^0-9]",""));
+            univRankDTO.setRank(rank);
             univRankDTO.setUnivName(element.child(2).select(".h-taut a").text());
             univRankDTO.setCountry(element.child(2).select(".t-taut span").first().text());
             univList.add(univRankDTO);
@@ -52,9 +59,8 @@ public class UnivRankCrawler implements Crawler {
         }
     }
 
-    public void traverseUnivList()
-    {
-        for(UnivRankDTO univRankDTO:univList)
-            System.out.println(univRankDTO.getRank()+":"+univRankDTO.getUnivName()+" in "+univRankDTO.getCountry());
+    public void traverseUnivList() {
+        for (UnivRankDTO univRankDTO : univList)
+            System.out.println(univRankDTO.getRank() + ":" + univRankDTO.getUnivName() + " in " + univRankDTO.getCountry());
     }
 }
