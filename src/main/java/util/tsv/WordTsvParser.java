@@ -54,10 +54,10 @@ public class WordTsvParser extends BasicTsvParser {
         System.out.println("wordList");
         System.out.println("======================");
 
-        for(String string: wordList)
-        {
-            System.out.println(string);
-        }
+//        for(String string: wordList)
+//        {
+//            System.out.println(string);
+//        }
 
         wordList.forEach(s->{
             System.out.println(s);
