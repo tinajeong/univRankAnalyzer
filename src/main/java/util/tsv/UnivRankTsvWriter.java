@@ -15,7 +15,8 @@ public class UnivRankTsvWriter extends BasicTsvWriter {
     @Override
     public void writeTSV() throws NullPointerException {
         if (crawledList != null) {
-            tsvWriter.writeHeaders(TSVConfig.getInstance().getUnivColumns());
+            //TODO writeHeaders의 파라미터 Collection으로 바꾸기
+            tsvWriter.writeHeaders(TSVConfig.ColumnUnivRank, TSVConfig.ColumnUnivName, TSVConfig.ColumnUnivCountry);
             for (UnivRankDTO univRankDTO : crawledList)
                 tsvWriter.writeRow(univRankDTO.getRank(), univRankDTO.getUnivName(), univRankDTO.getCountry());
             tsvWriter.close();
