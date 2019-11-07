@@ -1,6 +1,8 @@
 package main.java;
 
+import main.java.data.TSVConfig;
 import main.java.util.crawler.UnivRankCrawler;
+import main.java.util.tsv.BasicTsvParser;
 import main.java.util.tsv.UnivRankTsvWriter;
 import main.java.util.tsv.WordTsvParser;
 
@@ -27,6 +29,11 @@ public class Main {
         UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
 
         univRankTsvWriter.writeTSV(univRankCrawler.getUnivList());
+
+        BasicTsvParser basicTsvParser = new BasicTsvParser();
+        basicTsvParser.setTsvPath(TSVConfig.crawledTsvPath);
+        basicTsvParser.readTSV();
+        basicTsvParser.printTSV();
     }
 }
 
