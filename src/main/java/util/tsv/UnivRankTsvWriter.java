@@ -6,12 +6,14 @@ import main.java.data.UnivRankDTO;
 import java.util.ArrayList;
 
 public class UnivRankTsvWriter extends BasicTsvWriter {
+    ArrayList<UnivRankDTO> crawledList;
     public UnivRankTsvWriter() {
         super();
+        crawledList = new ArrayList<>();
     }
 
     @Override
-    public void writeTSV(ArrayList<UnivRankDTO> crawledList) throws NullPointerException {
+    public void writeTSV() throws NullPointerException {
         if (crawledList != null) {
             //TODO writeHeaders의 파라미터 Collection으로 바꾸기
             tsvWriter.writeHeaders(TSVConfig.ColumnUnivRank, TSVConfig.ColumnUnivName, TSVConfig.ColumnUnivCountry);
@@ -22,5 +24,13 @@ public class UnivRankTsvWriter extends BasicTsvWriter {
 
             tsvWriter.close();
         }
+    }
+
+    public ArrayList<UnivRankDTO> getCrawledList() {
+        return crawledList;
+    }
+
+    public void setCrawledList(ArrayList<UnivRankDTO> crawledList) {
+        this.crawledList = crawledList;
     }
 }

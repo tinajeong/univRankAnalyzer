@@ -27,8 +27,8 @@ public class Main {
         univRankCrawler.traverseUnivList();
 
         UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
-
-        univRankTsvWriter.writeTSV(univRankCrawler.getUnivList());
+        univRankTsvWriter.setCrawledList(univRankCrawler.getUnivList());
+        univRankTsvWriter.writeTSV();
 
         BasicTsvParser basicTsvParser = new BasicTsvParser();
         basicTsvParser.setTsvPath(TSVConfig.crawledTsvPath);
