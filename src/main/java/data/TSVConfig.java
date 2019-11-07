@@ -30,6 +30,12 @@ public class TSVConfig {
         univColumns.add(ColumnUnivCountry);
     }
 
+    public void setUnivColumns(List<String> univColumns)
+    {
+        this.univColumns.clear();
+        this.univColumns.addAll(univColumns);
+    }
+
     public static List<String> getUnivColumns() {
         return univColumns;
     }

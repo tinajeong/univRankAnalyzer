@@ -16,10 +16,8 @@ public class UnivRankTsvWriter extends BasicTsvWriter {
     public void writeTSV() throws NullPointerException {
         if (crawledList != null) {
             tsvWriter.writeHeaders(TSVConfig.getInstance().getUnivColumns());
-            for (UnivRankDTO univRankDTO : crawledList) {
+            for (UnivRankDTO univRankDTO : crawledList)
                 tsvWriter.writeRow(univRankDTO.getRank(), univRankDTO.getUnivName(), univRankDTO.getCountry());
-            }
-
             tsvWriter.close();
         }
     }
