@@ -28,10 +28,10 @@ public class Main {
 
         UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
         univRankTsvWriter.setCrawledList(univRankCrawler.getUnivList());
-        univRankTsvWriter.writeTSV();
+        univRankTsvWriter.writeTSVWithTime();
 
         BasicTsvParser basicTsvParser = new BasicTsvParser();
-        basicTsvParser.setTsvPath(TSVConfig.crawledTsvPath);
+        basicTsvParser.setTsvPath(univRankTsvWriter.getTsvPath());
         basicTsvParser.readTSV();
         basicTsvParser.printTSV();
     }

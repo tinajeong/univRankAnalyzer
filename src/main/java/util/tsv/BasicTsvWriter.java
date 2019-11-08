@@ -15,13 +15,14 @@ public class BasicTsvWriter {
     public TsvWriter tsvWriter;
     public BufferedWriter bufferedWriter;
     public FileWriter fileWriter;
+    public String TsvPath;
 
     public BasicTsvWriter() {
         try {
             tsvWriterSettings = new TsvWriterSettings();
             tsvWriterSettings.getFormat().setLineSeparator("\n");
-
-            fileWriter = new FileWriter(TSVConfig.crawledTsvPath);
+            TsvPath = TSVConfig.crawledTsvPath;
+            fileWriter = new FileWriter(TsvPath);
             bufferedWriter = new BufferedWriter(fileWriter);
 
             tsvWriter = new TsvWriter(bufferedWriter, tsvWriterSettings);
@@ -33,5 +34,29 @@ public class BasicTsvWriter {
     }
 
     public void writeTSV() {
+    }
+
+    public BufferedWriter getBufferedWriter() {
+        return bufferedWriter;
+    }
+
+    public void setBufferedWriter(BufferedWriter bufferedWriter) {
+        this.bufferedWriter = bufferedWriter;
+    }
+
+    public FileWriter getFileWriter() {
+        return fileWriter;
+    }
+
+    public void setFileWriter(FileWriter fileWriter) {
+        this.fileWriter = fileWriter;
+    }
+
+    public String getTsvPath() {
+        return TsvPath;
+    }
+
+    public void setTsvPath(String tsvPath) {
+        TsvPath = tsvPath;
     }
 }

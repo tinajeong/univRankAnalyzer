@@ -31,9 +31,9 @@ public class UnivRankCrawler implements Crawler {
     public void crawlingSite() throws IOException, InterruptedException {
         for (int i = 1; i <= 10; i++) {
             String pageUrl = CrawlingConfig.univUrl + "&page=" + i;
-            System.out.println(pageUrl);
+//            System.out.println(pageUrl);
             crawlingUnivRankPage(pageUrl);
-            sleep(3000);
+//            sleep(3000);
         }
     }
 
@@ -44,7 +44,7 @@ public class UnivRankCrawler implements Crawler {
                 .get();
 
         Elements elements = doc.select("#resultsMain .sep");
-        System.out.println(elements);
+//        System.out.println(elements);
 
         for (Element element : elements) {
             UnivRankDTO univRankDTO = new UnivRankDTO();
