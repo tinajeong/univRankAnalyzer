@@ -16,14 +16,23 @@ public class TSVConfig {
         univColumns = new ArrayList<>();
         setUnivColumns();
     }
-    //TODO 싱글톤 패턴 적용하기
+    private static class LazyHolder {
+        public static final TSVConfig INSTANCE = new TSVConfig();
+    }
+
+    public static TSVConfig getInstance() {
+        return LazyHolder.INSTANCE;
+    }
     private void setUnivColumns(){
-        //TODO add 함수 쓰기
+        univColumns.add(ColumnUnivRank);
+        univColumns.add(ColumnUnivName);
+        univColumns.add(ColumnUnivCountry);
     }
 
     public void setUnivColumns(List<String> univColumns)
     {
-        //TODO 구현하고 다이나믹하게 헤더 이름 정해주기
+        this.univColumns.clear();
+        this.univColumns.addAll(univColumns);
     }
 
     public static List<String> getUnivColumns() {

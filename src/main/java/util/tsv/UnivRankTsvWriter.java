@@ -13,6 +13,7 @@ import java.util.Date;
 
 public class UnivRankTsvWriter extends BasicTsvWriter {
     ArrayList<UnivRankDTO> crawledList;
+
     public UnivRankTsvWriter() {
         super();
         crawledList = new ArrayList<>();
@@ -21,8 +22,7 @@ public class UnivRankTsvWriter extends BasicTsvWriter {
     @Override
     public void writeTSV() throws NullPointerException {
         if (crawledList != null) {
-            //TODO writeHeaders의 파라미터 Collection으로 바꾸기
-            tsvWriter.writeHeaders(TSVConfig.ColumnUnivRank, TSVConfig.ColumnUnivName, TSVConfig.ColumnUnivCountry);
+            tsvWriter.writeHeaders(TSVConfig.getInstance().getUnivColumns());
             for (UnivRankDTO univRankDTO : crawledList)
                 tsvWriter.writeRow(univRankDTO.getRank(), univRankDTO.getUnivName(), univRankDTO.getCountry());
             tsvWriter.close();
@@ -33,7 +33,7 @@ public class UnivRankTsvWriter extends BasicTsvWriter {
         Date date = new Date();
         SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy");
         System.out.println(formatter.format(date));
-        TsvPath = TSVConfig.crawledTsvPath.replaceAll(".tsv","")+formatter.format(date)+".tsv";
+        TsvPath = TSVConfig.crawledTsvPath.replaceAll(".tsv", "") + formatter.format(date) + ".tsv";
         fileWriter = new FileWriter(TsvPath);
         bufferedWriter = new BufferedWriter(fileWriter);
         tsvWriter = new TsvWriter(bufferedWriter, tsvWriterSettings);
