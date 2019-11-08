@@ -33,7 +33,7 @@ public class HibernateUtil {
 
 
     private void load(SessionFactory sessionFactory) {
-        System.out.println("-- loading univ ranks --");
+        System.out.println("=======loading univ ranks=======");
         Session session = sessionFactory.openSession();
         @SuppressWarnings("unchecked")
         List<UnivRank> persons = session.createQuery("FROM UnivRank").list();
@@ -42,7 +42,7 @@ public class HibernateUtil {
     }
 
     private void persist(SessionFactory sessionFactory) {
-        System.out.println("-- persisting univ ranks --");
+        System.out.println("=======persisting univ ranks=======");
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();

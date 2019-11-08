@@ -8,8 +8,8 @@ public class TSVConfig {
     public static final String ColumnUnivName ="name";
     public static final String ColumnUnivRank ="rank";
     public static final String ColumnUnivCountry ="country";
-    public static final String crawledTsvPath ="output-univrank.tsv";
-    public static final String wordTsvPath ="output-onlinerandomtools.tsv";
+    public static final String crawledTsvPath ="generated/files/output-univrank.tsv";
+    public static final String wordTsvPath ="generated/files/output-onlinerandomtools.tsv";
 
     private static List<String> univColumns;
     private TSVConfig(){

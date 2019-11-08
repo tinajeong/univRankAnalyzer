@@ -2,7 +2,7 @@ plugins {
     id 'java'
     id 'application'
 }
-group 'javastudy'
+group 'univ_rank_analyzer'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
