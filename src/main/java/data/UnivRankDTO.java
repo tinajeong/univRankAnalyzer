@@ -1,6 +1,7 @@
 package main.java.data;
 
 public class UnivRankDTO {
+    //TODO 더 크롤링해오고 싶은 정보 Column 추가하기
     String univName;
     String country;
     Long rank;
