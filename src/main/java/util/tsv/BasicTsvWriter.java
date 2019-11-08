@@ -2,13 +2,11 @@ package main.java.util.tsv;
 
 import com.univocity.parsers.tsv.TsvWriter;
 import com.univocity.parsers.tsv.TsvWriterSettings;
-import main.java.data.TSVConfig;
-import main.java.data.UnivRankDTO;
+import main.java.config.TSVConfig;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class BasicTsvWriter {
     public TsvWriterSettings tsvWriterSettings;

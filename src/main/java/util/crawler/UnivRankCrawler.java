@@ -1,6 +1,6 @@
 package main.java.util.crawler;
 
-import main.java.data.CrawlingConfig;
+import main.java.config.CrawlingConfig;
 import main.java.data.UnivRankDTO;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;

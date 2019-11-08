@@ -2,7 +2,7 @@ package main.java.util.tsv;
 
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
-import main.java.data.TSVConfig;
+import main.java.config.TSVConfig;
 
 import java.io.File;
 import java.util.ArrayList;

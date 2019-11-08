@@ -1,7 +1,7 @@
 package main.java.util.tsv;
 
 import com.univocity.parsers.tsv.TsvWriter;
-import main.java.data.TSVConfig;
+import main.java.config.TSVConfig;
 import main.java.data.UnivRankDTO;
 
 import java.io.BufferedWriter;
@@ -31,8 +31,8 @@ public class UnivRankTsvWriter extends BasicTsvWriter {
 
     public void writeTSVWithTime() throws IOException {
         Date date = new Date();
-        SimpleDateFormat formatter = new SimpleDateFormat("dd_MM_yyyy");
-        System.out.println(formatter.format(date));
+        SimpleDateFormat formatter = new SimpleDateFormat("hh_dd_MM_yyyy");
+
         TsvPath = TSVConfig.crawledTsvPath.replaceAll(".tsv", "") + formatter.format(date) + ".tsv";
         fileWriter = new FileWriter(TsvPath);
         bufferedWriter = new BufferedWriter(fileWriter);

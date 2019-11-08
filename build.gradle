@@ -43,5 +43,9 @@ dependencies {
     // https://mvnrepository.com/artifact/edu.uci.ics/crawler4j
     compile group: 'edu.uci.ics', name: 'crawler4j', version: '4.4.0'
 
+    // https://mvnrepository.com/artifact/org.hibernate/hibernate-core
+    compile group: 'org.hibernate', name: 'hibernate-core', version: '5.4.8.Final'
+
+    runtimeOnly('com.h2database:h2:1.4.200')
 
 }
