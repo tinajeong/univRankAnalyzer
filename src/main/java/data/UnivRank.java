@@ -11,11 +11,11 @@ public class UnivRank {
     @GeneratedValue
     private int id;
 
-    @Column(name = "univ_name")
+    @Column
     private String univName;
-    @Column(name = "country")
+    @Column
     private String country;
-    @Column(name = "rank")
+    @Column
     private int rank;
 
     public int getId() {
