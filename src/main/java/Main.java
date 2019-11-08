@@ -34,7 +34,7 @@ public class Main {
         basicTsvParser.printTSV();
 
         HibernateUtil hibernateUtil = new HibernateUtil(univRankCrawler.getUnivList());
-        hibernateUtil.storeInfo();
+        hibernateUtil.accessDB();
     }
 }
 

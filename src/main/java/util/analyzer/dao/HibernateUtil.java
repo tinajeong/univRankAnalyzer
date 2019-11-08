@@ -19,7 +19,7 @@ public class HibernateUtil {
         this.univRankDTOList = univRankDTOList;
     }
 
-    public void storeInfo()
+    public void accessDB()
     {
         sessionFactory = new Configuration().configure()
                 .buildSessionFactory();

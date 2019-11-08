@@ -1,11 +1,9 @@
 package main.java.data;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
+@Table(name="univ_rank")
 public class UnivRank {
     @Id
     @GeneratedValue
