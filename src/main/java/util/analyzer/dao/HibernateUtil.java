@@ -54,7 +54,7 @@ public class HibernateUtil {
             session.save(univRank);
         }
         session.getTransaction().commit();
-        System.out.println("successfully saved");
+        System.out.println("=======successfully saved=======");
     }
 
     public List<UnivRankDTO> getUnivRankDTOList() {
