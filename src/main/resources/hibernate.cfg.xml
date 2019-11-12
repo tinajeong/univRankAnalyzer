@@ -11,8 +11,8 @@
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
         <property name="hbm2ddl.auto">create</property>
         <property name="hibernate.connection.username">sa</property>
-<!--        <property name="hibernate.connection.password"></property>-->
-        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.connection.password"></property>
+<!--        <property name="hibernate.show_sql">true</property>-->
         <mapping class="main.java.data.UnivRank"/>
 
     </session-factory>

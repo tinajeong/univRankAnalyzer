@@ -5,12 +5,15 @@ import main.java.data.UnivRankDTO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
 public class HibernateUtil {
     SessionFactory sessionFactory;
     List<UnivRankDTO> univRankDTOList;
+    private final static Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
 
     public HibernateUtil() {
     }
@@ -33,7 +36,7 @@ public class HibernateUtil {
 
 
     private void load(SessionFactory sessionFactory) {
-        System.out.println("=======loading univ ranks=======");
+        logger.info("=======loading univ ranks=======");
         Session session = sessionFactory.openSession();
         @SuppressWarnings("unchecked")
         List<UnivRank> persons = session.createQuery("FROM UnivRank").list();
@@ -42,7 +45,7 @@ public class HibernateUtil {
     }
 
     private void persist(SessionFactory sessionFactory) {
-        System.out.println("=======persisting univ ranks=======");
+        logger.info("=======persisting univ ranks=======");
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
@@ -54,7 +57,7 @@ public class HibernateUtil {
             session.save(univRank);
         }
         session.getTransaction().commit();
-        System.out.println("=======successfully saved=======");
+        logger.info("=======successfully saved=======");
     }
 
     public List<UnivRankDTO> getUnivRankDTOList() {

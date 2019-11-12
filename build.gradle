@@ -48,4 +48,8 @@ dependencies {
 
     runtimeOnly('com.h2database:h2:1.4.200')
 
+    // https://mvnrepository.com/artifact/ch.qos.logback/logback-classic
+    testCompile group: 'ch.qos.logback', name: 'logback-classic', version: '1.3.0-alpha5'
+
+
 }
