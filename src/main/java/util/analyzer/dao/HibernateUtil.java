@@ -16,16 +16,16 @@ public class HibernateUtil {
     private final static Logger logger = LoggerFactory.getLogger(HibernateUtil.class);
 
     public HibernateUtil() {
+        sessionFactory = new Configuration().configure()
+                .buildSessionFactory();
     }
 
     public HibernateUtil(List<UnivRankDTO> univRankDTOList) {
+        this();
         this.univRankDTOList = univRankDTOList;
     }
 
-    public void accessDB()
-    {
-        sessionFactory = new Configuration().configure()
-                .buildSessionFactory();
+    public void accessDB() {
         try {
             persist(sessionFactory);
             load(sessionFactory);
@@ -34,13 +34,20 @@ public class HibernateUtil {
         }
     }
 
+    public void read() {
+        try {
+            load(sessionFactory);
+        } finally {
+            sessionFactory.close();
+        }
+    }
 
     private void load(SessionFactory sessionFactory) {
         logger.info("=======loading univ ranks=======");
         Session session = sessionFactory.openSession();
         @SuppressWarnings("unchecked")
         List<UnivRank> persons = session.createQuery("FROM UnivRank").list();
-        persons.forEach((x) -> System.out.printf("- %s%n", x));
+        persons.forEach((x) -> logger.info("{}", x));
         session.close();
     }
 
@@ -49,8 +56,8 @@ public class HibernateUtil {
 
         Session session = sessionFactory.openSession();
         session.beginTransaction();
-        for(UnivRankDTO univRankDTO:univRankDTOList) {
-            UnivRank univRank =new UnivRank();
+        for (UnivRankDTO univRankDTO : univRankDTOList) {
+            UnivRank univRank = new UnivRank();
             univRank.setUnivName(univRankDTO.getUnivName());
             univRank.setCountry(univRankDTO.getCountry());
             univRank.setRank(Math.toIntExact(univRankDTO.getRank()));

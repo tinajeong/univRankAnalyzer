@@ -1,8 +1,10 @@
 package main.java;
 
+import main.java.config.TSVConfig;
 import main.java.util.analyzer.dao.HibernateUtil;
 import main.java.util.crawler.UnivRankCrawler;
 import main.java.util.tsv.BasicTsvParser;
+import main.java.util.tsv.UnivRankTsvParser;
 import main.java.util.tsv.UnivRankTsvWriter;
 
 import java.io.IOException;
@@ -10,31 +12,23 @@ import java.io.IOException;
 public class Main {
     public static void main(String[] args) throws IOException, InterruptedException {
         System.out.println("======================");
-//        new IOUtil().testIOUtil();
 
-//        BasicTsvParser basicTsvParser = new BasicTsvParser();
-//        basicTsvParser.readTSV();
-//        basicTsvParser.printTSV();
+//        UnivRankCrawler univRankCrawler = new UnivRankCrawler();
+//        univRankCrawler.crawlingSite();
+//        univRankCrawler.traverseUnivList();
+//
+//        UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
+//        univRankTsvWriter.setCrawledList(univRankCrawler.getUnivList());
+//        univRankTsvWriter.writeTSVWithTime();
 
-//        WordTsvParser wordTsvParser = new WordTsvParser();
-//        wordTsvParser.readTSV();
-//        wordTsvParser.printTSV();
+        UnivRankTsvParser univRankTsvParser = new UnivRankTsvParser();
+//        univRankTsvParser.setTsvPath(univRankTsvWriter.getTsvPath());
+        univRankTsvParser.setTsvPath("generated/files/output-univrank06_12_11_2019.tsv");
+        univRankTsvParser.readTSV();
+        univRankTsvParser.printTSV();
 
-        UnivRankCrawler univRankCrawler = new UnivRankCrawler();
-        univRankCrawler.crawlingSite();
-        univRankCrawler.traverseUnivList();
-
-        UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
-        univRankTsvWriter.setCrawledList(univRankCrawler.getUnivList());
-        univRankTsvWriter.writeTSVWithTime();
-
-        BasicTsvParser basicTsvParser = new BasicTsvParser();
-        basicTsvParser.setTsvPath(univRankTsvWriter.getTsvPath());
-        basicTsvParser.readTSV();
-        basicTsvParser.printTSV();
-
-        HibernateUtil hibernateUtil = new HibernateUtil(univRankCrawler.getUnivList());
-        hibernateUtil.accessDB();
+        HibernateUtil hibernateUtil = new HibernateUtil(univRankTsvParser.getUnivRankList());
+        hibernateUtil.read();
     }
 }
 
