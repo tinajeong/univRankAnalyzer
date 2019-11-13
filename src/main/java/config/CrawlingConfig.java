@@ -1,8 +1,10 @@
 package main.java.config;
 
 public class CrawlingConfig {
-    public final static String univUrl = "https://www.usnews.com/education/best-global-universities/search?region=&subject=computer-science";
+    public final static String univUrl = "https://www.usnews.com/education/best-global-universities/computer-science";
     //https://www.whatismybrowser.com/detect/what-is-my-user-agent
-    public final static String userAgent ="";
+    public final static String userAgent ="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/78.0.3904.97";
+    public final static String userAgentMac ="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.75 Safari/537.36";
+    public final static String crawler4jUserAgent ="crawler4j (http://code.google.com/p/crawler4j/)";
     public final static int pageNum = 10;
 }
