@@ -31,7 +31,6 @@ public class UnivRankTsvParser extends BasicTsvParser {
         }
     }
 
-
     @Override
     public void printTSV() {
         super.printTSV();

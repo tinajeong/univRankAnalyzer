@@ -31,7 +31,6 @@ public class UnivRankCrawler implements Crawler {
     public void crawlingSite() throws IOException, InterruptedException {
         for (int i = 1; i <= 10; i++) {
             String pageUrl = CrawlingConfig.univUrl + "&page=" + i;
-//            System.out.println(pageUrl);
             crawlingUnivRankPage(pageUrl);
 //            sleep(3000);
         }
@@ -53,9 +52,6 @@ public class UnivRankCrawler implements Crawler {
             univRankDTO.setUnivName(element.child(2).select(".h-taut a").text());
             univRankDTO.setCountry(element.child(2).select(".t-taut span").first().text());
             univList.add(univRankDTO);
-//            System.out.println(element.child(1).text());
-//            System.out.println(element.child(2).select(".h-taut a").text());
-//            System.out.println(element.child(2).select(".t-taut span").first().text());
         }
     }
 

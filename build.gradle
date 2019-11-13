@@ -8,7 +8,7 @@ version '1.0-SNAPSHOT'
 sourceCompatibility = 1.8
 
 application {
-    mainClassName = 'main.java.Main'
+    mainClassName = 'main.java.MainController'
 }
 sourceSets {
     main {

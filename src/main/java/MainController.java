@@ -9,21 +9,20 @@ import main.java.util.tsv.UnivRankTsvWriter;
 
 import java.io.IOException;
 
-public class Main {
+public class MainController {
     public static void main(String[] args) throws IOException, InterruptedException {
         System.out.println("======================");
 
-//        UnivRankCrawler univRankCrawler = new UnivRankCrawler();
-//        univRankCrawler.crawlingSite();
-//        univRankCrawler.traverseUnivList();
-//
-//        UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
-//        univRankTsvWriter.setCrawledList(univRankCrawler.getUnivList());
-//        univRankTsvWriter.writeTSVWithTime();
+        UnivRankCrawler univRankCrawler = new UnivRankCrawler();
+        univRankCrawler.crawlingSite();
+        univRankCrawler.traverseUnivList();
+
+        UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
+        univRankTsvWriter.setCrawledList(univRankCrawler.getUnivList());
+        univRankTsvWriter.writeTSVWithTime();
 
         UnivRankTsvParser univRankTsvParser = new UnivRankTsvParser();
-//        univRankTsvParser.setTsvPath(univRankTsvWriter.getTsvPath());
-        univRankTsvParser.setTsvPath("generated/files/output-univrank06_12_11_2019.tsv");
+        univRankTsvParser.setTsvPath(univRankTsvWriter.getTsvPath());
         univRankTsvParser.readTSV();
         univRankTsvParser.printTSV();
 
