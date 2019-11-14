@@ -1,6 +1,7 @@
 package main.java;
 
 import main.java.util.analyzer.dao.HibernateUtil;
+import main.java.util.crawler.UnivInfoParser;
 import main.java.util.crawler.UnivRankParser;
 import main.java.util.tsv.UnivRankTsvParser;
 import main.java.util.tsv.UnivRankTsvWriter;
@@ -15,17 +16,22 @@ public class MainController {
         univRankParser.crawlingSite();
         univRankParser.traverseUnivList();
 
-        UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
-        univRankTsvWriter.setCrawledList(univRankParser.getUnivList());
-        univRankTsvWriter.writeTSVWithTime();
+//        UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
+//        univRankTsvWriter.setCrawledList(univRankParser.getUnivList());
+//        univRankTsvWriter.writeTSVWithTime();
+//
+//        UnivRankTsvParser univRankTsvParser = new UnivRankTsvParser();
+//        univRankTsvParser.setTsvPath(univRankTsvWriter.getTsvPath());
+//        univRankTsvParser.readTSV();
+//        univRankTsvParser.printTSV();
+//
+//        HibernateUtil hibernateUtil = new HibernateUtil(univRankTsvParser.getUnivRankList());
+//        hibernateUtil.accessDB();
 
-        UnivRankTsvParser univRankTsvParser = new UnivRankTsvParser();
-        univRankTsvParser.setTsvPath(univRankTsvWriter.getTsvPath());
-        univRankTsvParser.readTSV();
-        univRankTsvParser.printTSV();
-
-        HibernateUtil hibernateUtil = new HibernateUtil(univRankTsvParser.getUnivRankList());
-        hibernateUtil.accessDB();
+        UnivInfoParser univInfoParser = new UnivInfoParser();
+        univInfoParser.setUnivList(univRankParser.getUnivList());
+        univInfoParser.crawlingSite();
+        univInfoParser.traverseList();
     }
 }
 

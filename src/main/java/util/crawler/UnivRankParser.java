@@ -2,10 +2,13 @@ package main.java.util.crawler;
 
 import main.java.config.CrawlingConfig;
 import main.java.data.UnivRankDTO;
+import main.java.util.analyzer.dao.HibernateUtil;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,11 +17,10 @@ import static java.lang.Thread.sleep;
 
 public class UnivRankParser implements Crawler {
     ArrayList<UnivRankDTO> univList;
-    ArrayList<String> univHrefList;
+    private final static Logger logger = LoggerFactory.getLogger(UnivRankParser.class);
 
     public UnivRankParser() {
         univList = new ArrayList<>();
-        univHrefList = new ArrayList<>();
     }
 
     public ArrayList<UnivRankDTO> getUnivList() {
@@ -29,18 +31,10 @@ public class UnivRankParser implements Crawler {
         this.univList = univList;
     }
 
-    public ArrayList<String> getUnivHrefList() {
-        return univHrefList;
-    }
-
-    public void setUnivHrefList(ArrayList<String> univHrefList) {
-        this.univHrefList = univHrefList;
-    }
-
     @Override
     public void crawlingSite() throws IOException, InterruptedException {
         for (int i = 1; i <= 10; i++) {
-            String pageUrl = CrawlingConfig.univUrl + "&page=" + i;
+            String pageUrl = CrawlingConfig.univUrl + "?page=" + i;
             crawlingUnivRankPage(pageUrl);
 //            sleep(3000);
         }
@@ -59,8 +53,10 @@ public class UnivRankParser implements Crawler {
             UnivRankDTO univRankDTO = new UnivRankDTO();
             Long rank = Long.parseLong(element.child(1).text().substring(1).replaceAll("[^0-9]", ""));
             univRankDTO.setRank(rank);
-            univRankDTO.setUnivName(element.child(2).select(".h-taut a").text());
+            String univName = element.child(2).select(".h-taut a").text().replaceAll("[^A-Za-z ]"," ").trim();
+            univRankDTO.setUnivName(univName);
             univRankDTO.setCountry(element.child(2).select(".t-taut span").first().text());
+            univRankDTO.setUnivInfoHref(element.child(2).select(".h-taut a").attr("href"));
             univList.add(univRankDTO);
         }
     }

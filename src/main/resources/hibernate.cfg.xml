@@ -9,7 +9,7 @@
 <!--        <property name="connection.url">jdbc:h2:mem:test;DB_CLOSE_DELAY=-1</property>-->
         <property name="connection.url">jdbc:h2:tcp://localhost/~/test</property>
         <property name="dialect">org.hibernate.dialect.H2Dialect</property>
-        <property name="hbm2ddl.auto">validate</property>
+        <property name="hbm2ddl.auto">create</property>
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.connection.password"></property>
 <!--        <property name="hibernate.show_sql">true</property>-->

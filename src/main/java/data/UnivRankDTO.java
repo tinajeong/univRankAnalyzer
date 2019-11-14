@@ -1,11 +1,10 @@
 package main.java.data;
 
 public class UnivRankDTO {
-    //TODO
     String univName;
     String country;
     Long rank;
-
+    String  univInfoHref;
     public UnivRankDTO() {
     }
 
@@ -13,6 +12,13 @@ public class UnivRankDTO {
         this.univName = univName;
         this.country = country;
         this.rank = rank;
+    }
+
+    public UnivRankDTO(String univName, String country, Long rank, String univInfoHref) {
+        this.univName = univName;
+        this.country = country;
+        this.rank = rank;
+        this.univInfoHref = univInfoHref;
     }
 
     public String getUnivName() {
@@ -39,4 +45,11 @@ public class UnivRankDTO {
         this.rank = rank;
     }
 
+    public String getUnivInfoHref() {
+        return univInfoHref;
+    }
+
+    public void setUnivInfoHref(String univInfoHref) {
+        this.univInfoHref = univInfoHref;
+    }
 }

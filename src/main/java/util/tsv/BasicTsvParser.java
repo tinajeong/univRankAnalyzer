@@ -17,6 +17,11 @@ public class BasicTsvParser {
         TsvPath = null;
     }
 
+    public BasicTsvParser(String tsvPath) {
+        this();
+        TsvPath = tsvPath;
+    }
+
     public void setTsvPath(String tsvPath) {
         TsvPath = tsvPath;
     }
