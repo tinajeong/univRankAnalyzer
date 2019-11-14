@@ -42,7 +42,7 @@ public class UnivRankParser implements Crawler {
 
     public void crawlingUnivRankPage(String url) throws IOException {
         Document doc = Jsoup.connect(url)
-                .header("User-Agent", "Mozilla/5.0")
+                .header("User-Agent", CrawlingConfig.userAgentDefault)
                 .timeout(5000)
                 .get();
 

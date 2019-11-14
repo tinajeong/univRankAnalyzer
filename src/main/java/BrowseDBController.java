@@ -1,7 +1,7 @@
 package main.java;
 
 import main.java.util.analyzer.dao.HibernateUtil;
-import main.java.util.tsv.UnivRankTsvParser;
+import main.java.util.tsv.parser.UnivRankTsvParser;
 
 public class BrowseDBController {
     public static void main(String[] args)

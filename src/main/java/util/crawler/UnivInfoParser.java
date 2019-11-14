@@ -33,7 +33,7 @@ public class UnivInfoParser implements Crawler {
     public void crawlingSite() throws IOException, InterruptedException {
         for (UnivRankDTO univRankDTO : univList) {
             crawlingPage(univRankDTO);
-            sleep(1000);
+            sleep(10);
         }
     }
 
@@ -86,7 +86,7 @@ public class UnivInfoParser implements Crawler {
 
     public void traverseList() {
         univInfoList.forEach(univInfoDTO -> {
-            logger.info("{}\n\t-{}-\n\t{}-\n\t{}",univInfoDTO.getName(),univInfoDTO.getAddress(),univInfoDTO.getWebsite(),univInfoDTO.getSummary().substring(0,10));
+            logger.info("{}\n\t-{}\n\t-{}\n\t-{}",univInfoDTO.getName(),univInfoDTO.getAddress(),univInfoDTO.getWebsite(),univInfoDTO.getSummary());
         });
     }
 }
