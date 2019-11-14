@@ -1,8 +1,7 @@
 package main.java.util.crawler;
 
 import main.java.config.CrawlingConfig;
-import main.java.data.UnivRankDTO;
-import main.java.util.analyzer.dao.HibernateUtil;
+import main.java.data.dto.UnivRankDTO;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;

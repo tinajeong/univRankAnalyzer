@@ -1,6 +1,6 @@
 package main.java.util.tsv.parser;
 
-import main.java.data.UnivRankDTO;
+import main.java.data.dto.UnivRankDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

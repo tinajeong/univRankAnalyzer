@@ -2,7 +2,7 @@ package main.java.util.tsv.writer;
 
 import com.univocity.parsers.tsv.TsvWriter;
 import main.java.config.TSVConfig;
-import main.java.data.UnivInfoDTO;
+import main.java.data.dto.UnivInfoDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

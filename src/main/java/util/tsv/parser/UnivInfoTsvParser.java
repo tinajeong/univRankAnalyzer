@@ -3,8 +3,7 @@ package main.java.util.tsv.parser;
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 import main.java.config.TSVConfig;
-import main.java.data.UnivInfoDTO;
-import main.java.data.UnivRankDTO;
+import main.java.data.dto.UnivInfoDTO;
 
 import java.io.File;
 import java.util.ArrayList;

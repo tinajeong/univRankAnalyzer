@@ -1,11 +1,10 @@
 package main.java.util.crawler;
 
 import main.java.config.CrawlingConfig;
-import main.java.data.UnivInfoDTO;
-import main.java.data.UnivRankDTO;
+import main.java.data.dto.UnivInfoDTO;
+import main.java.data.dto.UnivRankDTO;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
