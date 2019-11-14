@@ -1,62 +1,63 @@
 package main.java.util.crawler;
 
+import edu.uci.ics.crawler4j.crawler.Page;
+import edu.uci.ics.crawler4j.crawler.WebCrawler;
+import edu.uci.ics.crawler4j.parser.HtmlParseData;
+import edu.uci.ics.crawler4j.url.WebURL;
 import main.java.config.CrawlingConfig;
-import main.java.data.UnivRankDTO;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.Set;
+import java.util.regex.Pattern;
 
-import static java.lang.Thread.sleep;
+public class UnivRankCrawler extends WebCrawler {
+    private final static Pattern EXCLUSIONS = Pattern.compile(".*(\\.(css|js|xml|gif|jpg|png|mp3|mp4|zip|gz|pdf))$");
+    private final static Logger logger = LoggerFactory.getLogger(UnivRankCrawler.class);
+    private CrawlerStatistics stats;
 
-public class UnivRankCrawler implements Crawler {
-    ArrayList<UnivRankDTO> univList;
-
-    public UnivRankCrawler() {
-        univList = new ArrayList<>();
-    }
-
-    public ArrayList<UnivRankDTO> getUnivList() {
-        return univList;
-    }
-
-    public void setUnivList(ArrayList<UnivRankDTO> univList) {
-        this.univList = univList;
+    public UnivRankCrawler(CrawlerStatistics stats) {
+        this.stats = stats;
     }
 
     @Override
-    public void crawlingSite() throws IOException, InterruptedException {
-        for (int i = 1; i <= 10; i++) {
-            String pageUrl = CrawlingConfig.univUrl + "&page=" + i;
-            crawlingUnivRankPage(pageUrl);
-//            sleep(3000);
+    public boolean shouldVisit(Page referringPage, WebURL url) {
+        String urlString = url.getURL().toLowerCase();
+        return !EXCLUSIONS.matcher(urlString).matches()
+                && urlString.startsWith(CrawlingConfig.univUrl);
+    }
+
+    @Override
+    public void visit(Page page) {
+        String url = page.getWebURL().getURL();
+        logger.info(url);
+        stats.incrementProcessedPageCount();
+
+        if (page.getParseData() instanceof HtmlParseData) {
+            HtmlParseData htmlParseData = (HtmlParseData) page.getParseData();
+            String title = htmlParseData.getTitle();
+            String text = htmlParseData.getText();
+            String html = htmlParseData.getHtml();
+            Set<WebURL> links = htmlParseData.getOutgoingUrls();
+            stats.incrementTotalLinksCount(links.size());
+
+            logger.info("Page with title '{}'", title);
+            logger.info("    Text length: {}", text.length());
+            logger.info("    HTML length: {}", html.length());
+
+            logger.info("    {} outbound links", links.size());
+            try {
+                FileWriter fileWriter = new FileWriter("generated/crawler4j/"+title.replaceAll("[^A-Za-z]","").toLowerCase()+html.length()+".html");
+                fileWriter.write(html);
+                fileWriter.flush();
+                fileWriter.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
         }
     }
 
-    public void crawlingUnivRankPage(String url) throws IOException {
-        Document doc = Jsoup.connect(url)
-                .header("User-Agent", "Mozilla/5.0")
-                .timeout(5000)
-                .get();
-
-        Elements elements = doc.select("#resultsMain .sep");
-//        System.out.println(elements);
-
-        for (Element element : elements) {
-            UnivRankDTO univRankDTO = new UnivRankDTO();
-            Long rank = Long.parseLong(element.child(1).text().substring(1).replaceAll("[^0-9]",""));
-            univRankDTO.setRank(rank);
-            univRankDTO.setUnivName(element.child(2).select(".h-taut a").text());
-            univRankDTO.setCountry(element.child(2).select(".t-taut span").first().text());
-            univList.add(univRankDTO);
-        }
-    }
-
-    public void traverseUnivList() {
-        for (UnivRankDTO univRankDTO : univList)
-            System.out.println(univRankDTO.getRank() + ":" + univRankDTO.getUnivName() + " in " + univRankDTO.getCountry());
-    }
 }

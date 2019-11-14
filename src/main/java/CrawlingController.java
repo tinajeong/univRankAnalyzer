@@ -7,7 +7,7 @@ import edu.uci.ics.crawler4j.robotstxt.RobotstxtConfig;
 import edu.uci.ics.crawler4j.robotstxt.RobotstxtServer;
 import main.java.config.CrawlingConfig;
 import main.java.util.crawler.CrawlerStatistics;
-import main.java.util.crawler.HtmlCrawler;
+import main.java.util.crawler.UnivRankCrawler;
 import org.apache.http.Header;
 import org.apache.http.message.BasicHeader;
 
@@ -26,6 +26,7 @@ public class CrawlingController {
                 new BasicHeader("Accept", "text/html,text/xml"),
                 new BasicHeader("Accept-Language", "en-gb, en-us, en-uk")
         );
+
         config.setDefaultHeaders(headers);
         config.setMaxDepthOfCrawling(1);
         config.setConnectionTimeout(5000);
@@ -41,7 +42,7 @@ public class CrawlingController {
         controller.addSeed(CrawlingConfig.univUrl);
 
         CrawlerStatistics stats = new CrawlerStatistics();
-        CrawlController.WebCrawlerFactory<HtmlCrawler> factory = () -> new HtmlCrawler(stats);
+        CrawlController.WebCrawlerFactory<UnivRankCrawler> factory = () -> new UnivRankCrawler(stats);
 
         controller.start(factory, numCrawlers);
         System.out.printf("Crawled %d pages %n", stats.getProcessedPageCount());
