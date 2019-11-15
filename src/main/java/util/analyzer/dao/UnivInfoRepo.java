@@ -103,11 +103,11 @@ public class UnivInfoRepo {
                 continue;
             }
 
-            Query InfoQuery = session.createQuery("from UnivInfo as ur where ur.univRank.univName=:univName");
-            query.setParameter("univName", univInfoDTO.getName());
-            UnivRank univRank2 = (UnivRank) query.uniqueResult();
+            Query InfoQuery = session.createQuery("from UnivInfo as ur where ur.univRank.univName= :univName");
+            InfoQuery.setParameter("univName",univRank.getUnivName());
+            UnivRank univRank2 = (UnivRank) InfoQuery.uniqueResult();
             if(univRank2!=null)
-                //TODO refactoring in update statments
+                //TODO refactoring in update statements
                 continue;
             session.save(univInfo);
 
