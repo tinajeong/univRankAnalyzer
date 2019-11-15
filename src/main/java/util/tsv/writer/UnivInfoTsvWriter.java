@@ -17,7 +17,7 @@ public class UnivInfoTsvWriter extends BasicTsvWriter {
 
     public UnivInfoTsvWriter() {
         super();
-        this.TsvPath= TSVConfig.crawledInfoTsvPath;
+        this.TsvPath= TSVConfig.getInstance().crawledInfoTsvPath;
     }
 
     public UnivInfoTsvWriter(List<UnivInfoDTO> univInfoDTOList) {

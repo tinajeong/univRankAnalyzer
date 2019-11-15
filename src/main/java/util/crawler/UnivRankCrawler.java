@@ -42,21 +42,25 @@ public class UnivRankCrawler extends WebCrawler {
             String html = htmlParseData.getHtml();
             Set<WebURL> links = htmlParseData.getOutgoingUrls();
             stats.incrementTotalLinksCount(links.size());
+            String[] split = url.split("/");
+            logger.info(split[split.length-1]);
+            if(split[split.length-1].matches("[a-zA-z-0-9]")) {
+                logger.info("Page with title '{}'", title);
+                logger.info("    Text length: {}", text.length());
+                logger.info("    HTML length: {}", html.length());
 
-            logger.info("Page with title '{}'", title);
-            logger.info("    Text length: {}", text.length());
-            logger.info("    HTML length: {}", html.length());
+                logger.info("    {} outbound links", links.size());
+                try {
 
-            logger.info("    {} outbound links", links.size());
-            try {
-                FileWriter fileWriter = new FileWriter("generated/crawler4j/"+title.replaceAll("[^A-Za-z]","").toLowerCase()+html.length()+".html");
-                fileWriter.write(html);
-                fileWriter.flush();
-                fileWriter.close();
-            } catch (IOException e) {
-                e.printStackTrace();
+                    FileWriter fileWriter = new FileWriter("generated/crawler4j/" + title.replaceAll("[^A-Za-z]", "").toLowerCase() + html.length() + ".html");
+                    fileWriter.write(html);
+                    fileWriter.flush();
+                    fileWriter.close();
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-
         }
     }
 

@@ -1,7 +1,6 @@
 package main.java;
 
-import main.java.data.UnivInfo;
-import main.java.util.analyzer.dao.HibernateUtil;
+import main.java.util.analyzer.dao.UnivRankRepo;
 import main.java.util.analyzer.dao.UnivInfoRepo;
 import main.java.util.crawler.UnivInfoParser;
 import main.java.util.crawler.UnivRankParser;
@@ -43,8 +42,8 @@ public class MainController {
         univInfoTsvParser.readTSV();
 //        univInfoTsvParser.printTSV();
 
-        HibernateUtil hibernateUtil = new HibernateUtil(univRankTsvParser.getUnivRankList());
-        hibernateUtil.accessDB();
+        UnivRankRepo univRankRepo = new UnivRankRepo(univRankTsvParser.getUnivRankList());
+        univRankRepo.accessDB();
         UnivInfoRepo univInfoRepo = new UnivInfoRepo(univInfoTsvParser.getUnivInfoDTOList());
         univInfoRepo.accessDB();
     }

@@ -65,7 +65,7 @@ public class UnivInfoRepo {
         logger.info("=======loading univ info-address=======");
         Session session = sessionFactory.openSession();
         @SuppressWarnings("unchecked")
-        List<UnivInfo> persons = session.createQuery("FROM UnivInfo as info WHERE info.summary is not null").list();
+        List<UnivInfo> persons = session.createQuery("FROM UnivInfo as info WHERE info.address is not null").list();
         persons.forEach((x) -> logger.info("{}", x));
         session.close();
     }
@@ -105,7 +105,9 @@ public class UnivInfoRepo {
 
             Query InfoQuery = session.createQuery("from UnivInfo as ur where ur.univRank.univName= :univName");
             InfoQuery.setParameter("univName",univRank.getUnivName());
-            UnivRank univRank2 = (UnivRank) InfoQuery.uniqueResult();
+            UnivInfo univInfo2 = (UnivInfo) InfoQuery.uniqueResult();
+
+            UnivRank univRank2 = univInfo2.getUnivRank();
             if(univRank2!=null)
                 //TODO refactoring in update statements
                 continue;

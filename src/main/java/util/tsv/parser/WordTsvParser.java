@@ -28,7 +28,7 @@ public class WordTsvParser extends BasicTsvParser {
     @Override
     public void readTSV() {
         try {
-            fileReader = new FileReader(TSVConfig.wordTsvPath);
+            fileReader = new FileReader(TSVConfig.getInstance().wordTsvPath);
         }
         catch (FileNotFoundException e) {
             e.printStackTrace();

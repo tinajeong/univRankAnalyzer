@@ -32,7 +32,7 @@ public class BasicTsvParser {
 
         TsvParser parser = new TsvParser(settings);
         if (TsvPath == null)
-            allRows = parser.parseAll(new File(TSVConfig.wordTsvPath));
+            allRows = parser.parseAll(new File(TSVConfig.getInstance().wordTsvPath));
         else
             allRows = parser.parseAll(new File(TsvPath));
     }
