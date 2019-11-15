@@ -5,6 +5,7 @@ import main.java.data.dto.UnivRankDTO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -57,11 +58,17 @@ public class HibernateUtil {
         Session session = sessionFactory.openSession();
         session.beginTransaction();
         for (UnivRankDTO univRankDTO : univRankDTOList) {
+            Query query = session.createQuery("from UnivRank as ur where ur.univName=:univName");
+            query.setParameter("univName",univRankDTO.getUnivName());
             UnivRank univRank = new UnivRank();
-            univRank.setUnivName(univRankDTO.getUnivName());
-            univRank.setCountry(univRankDTO.getCountry());
-            univRank.setRank(Math.toIntExact(univRankDTO.getRank()));
-            session.save(univRank);
+            if(query.uniqueResult()==null) {
+                univRank.setUnivName(univRankDTO.getUnivName());
+                univRank.setCountry(univRankDTO.getCountry());
+                univRank.setRank(Math.toIntExact(univRankDTO.getRank()));
+                session.save(univRank);
+            }
+            else
+                continue;
         }
         session.getTransaction().commit();
         logger.info("=======successfully saved=======");

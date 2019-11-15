@@ -8,6 +8,7 @@ public class TSVConfig {
     public static final String ColumnUnivName ="name";
     public static final String ColumnUnivRank ="rank";
     public static final String ColumnUnivCountry ="country";
+    public static final String ColumnUnivInfoHref ="href";
     public static final String ColumnUnivAddress ="address";
     public static final String ColumnUnivWebsite ="website";
     public static final String ColumnUnivSummary ="summary";
@@ -35,6 +36,7 @@ public class TSVConfig {
         univColumns.add(ColumnUnivRank);
         univColumns.add(ColumnUnivName);
         univColumns.add(ColumnUnivCountry);
+        univColumns.add(ColumnUnivInfoHref);
     }
     private void setUnivInfoColumns()
     {

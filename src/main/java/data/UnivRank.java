@@ -1,29 +1,23 @@
 package main.java.data;
 
 import javax.persistence.*;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name="univ_rank")
 public class UnivRank {
     @Id
-    @GeneratedValue
-    @Column(name="id")
-    private int id;
-
     @Column
     private String univName;
     @Column
     private String country;
     @Column
     private int rank;
+    @OneToMany(mappedBy="univRank")
+    private List<UnivInfo> univInfos = new ArrayList<UnivInfo>();
 
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
 
     public String getUnivName() {
         return univName;
@@ -49,11 +43,18 @@ public class UnivRank {
         this.rank = rank;
     }
 
+    public List<UnivInfo> getUnivInfos() {
+        return univInfos;
+    }
+
+    public void setUnivInfos(List<UnivInfo> univInfos) {
+        this.univInfos = univInfos;
+    }
+
     @Override
     public String toString() {
         return "UnivRank{" +
-                "id=" + id +
-                ", univName='" + univName + '\'' +
+                "univName='" + univName + '\'' +
                 ", country='" + country + '\'' +
                 ", rank=" + rank +
                 '}';

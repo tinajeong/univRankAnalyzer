@@ -3,29 +3,32 @@ package main.java.data;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="univ_info")
-public class UnivInfo {
+public class UnivInfo implements Serializable {
 
     @Id
     @GeneratedValue(generator = "uuid")
     @GenericGenerator(name = "uuid", strategy = "uuid2")
-    @Column(name = "info_id")
+    @Column(name = "info_id", updatable = false)
     private String info_id;
+
     @Column
+    @Id
     private String name;
     @Column
     private String address;
     @Column
     private String website;
     //@Column(length=1000)
-    @Column(columnDefinition="text")
+    @Column(columnDefinition="clob")
     private String summary;
 
     @ManyToOne(targetEntity = UnivRank.class,fetch = FetchType.LAZY)
-    @JoinColumn(name="id")
-    UnivRank univRank;
+    @JoinColumn(name="univName")
+    private UnivRank univRank;
 
     public String getInfo_id() {
         return info_id;
@@ -67,10 +70,18 @@ public class UnivInfo {
         this.summary = summary;
     }
 
+    public UnivRank getUnivRank() {
+        return univRank;
+    }
+
+    public void setUnivRank(UnivRank univRank) {
+        this.univRank = univRank;
+    }
+
     @Override
     public String toString() {
         return "UnivInfo{" +
-                "info_id=" + info_id +
+                "info_id='" + info_id + '\'' +
                 ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", website='" + website + '\'' +

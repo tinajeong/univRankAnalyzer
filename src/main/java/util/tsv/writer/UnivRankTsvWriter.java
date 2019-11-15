@@ -24,7 +24,7 @@ public class UnivRankTsvWriter extends BasicTsvWriter {
         if (crawledList != null) {
             tsvWriter.writeHeaders(TSVConfig.getInstance().getUnivColumns());
             for (UnivRankDTO univRankDTO : crawledList)
-                tsvWriter.writeRow(univRankDTO.getRank(), univRankDTO.getUnivName(), univRankDTO.getCountry());
+                tsvWriter.writeRow(univRankDTO.getRank(), univRankDTO.getUnivName(), univRankDTO.getCountry(),univRankDTO.getUnivInfoHref());
             tsvWriter.close();
         }
         else
