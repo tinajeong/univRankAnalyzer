@@ -102,6 +102,13 @@ public class UnivInfoRepo {
                 logger.error("univ rank information is not found");
                 continue;
             }
+
+            Query InfoQuery = session.createQuery("from UnivInfo as ur where ur.univRank.univName=:univName");
+            query.setParameter("univName", univInfoDTO.getName());
+            UnivRank univRank2 = (UnivRank) query.uniqueResult();
+            if(univRank2!=null)
+                //TODO refactoring in update statments
+                continue;
             session.save(univInfo);
 
         }

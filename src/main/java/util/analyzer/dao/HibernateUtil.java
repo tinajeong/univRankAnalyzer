@@ -69,6 +69,7 @@ public class HibernateUtil {
                 session.save(univRank);
             }
             else{
+                //TODO refactoring in update statments
                 logger.info("univname is already exists");
                 continue;
             }
