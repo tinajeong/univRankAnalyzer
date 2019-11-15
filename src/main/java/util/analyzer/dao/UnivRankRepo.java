@@ -6,7 +6,6 @@ import main.java.data.dto.UnivRankDTO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-import org.hibernate.query.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -16,8 +15,8 @@ import javax.persistence.criteria.Root;
 import java.util.List;
 
 public class UnivRankRepo {
-    SessionFactory sessionFactory;
-    List<UnivRankDTO> univRankDTOList;
+    private SessionFactory sessionFactory;
+    private List<UnivRankDTO> univRankDTOList;
     private final static Logger logger = LoggerFactory.getLogger(UnivRankRepo.class);
 
     public UnivRankRepo() {
@@ -74,15 +73,14 @@ public class UnivRankRepo {
             UnivRank univRankTemp = session.createQuery(criteriaQuery).uniqueResult();
 
             UnivRank univRank = new UnivRank();
+            int tempRank =Math.toIntExact(univRankDTO.getRank());
             if ((univRankTemp == null)) {
                 univRank.setUnivName(univRankDTO.getUnivName());
                 univRank.setCountry(univRankDTO.getCountry());
-                univRank.setRank(Math.toIntExact(univRankDTO.getRank()));
+                univRank.setRank(tempRank);
                 session.save(univRank);
             } else {
-                //TODO refactoring in update statments
-                logger.info("univname is already exists");
-                continue;
+                updateRank(univRankTemp.getRank(),tempRank);
             }
 
         }
@@ -90,7 +88,23 @@ public class UnivRankRepo {
         session.getTransaction().commit();
         logger.info("=======successfully saved=======");
     }
+    private int updateRank(int oldRank, int newRank)
+    {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
 
+        int updatedEntities = session.createQuery(
+                "update UnivRank as ur\n" +
+                        "set ur.rank= :newRank\n" +
+                        "where ur.rank = :oldRank" )
+                .setParameter( "oldRank", oldRank )
+                .setParameter( "newRank", newRank )
+                .executeUpdate();
+
+        session.getTransaction().commit();
+
+        return updatedEntities;
+    }
     public List<UnivRankDTO> getUnivRankDTOList() {
         return univRankDTOList;
     }

@@ -30,7 +30,7 @@ public class CrawlingController {
         config.setDefaultHeaders(headers);
         config.setMaxDepthOfCrawling(1);
         config.setConnectionTimeout(5000);
-        config.setUserAgentString(CrawlingConfig.userAgentMac);
+        config.setUserAgentString(CrawlingConfig.getInstance().userAgentMac);
         config.setPolitenessDelay(1000);
         int numCrawlers = 12;
 

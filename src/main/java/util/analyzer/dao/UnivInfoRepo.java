@@ -14,9 +14,9 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class UnivInfoRepo {
-    SessionFactory sessionFactory;
-    List<UnivInfoDTO> univInfoDTOList;
-    List<UnivRankDTO> univRankDTOList;
+    private SessionFactory sessionFactory;
+    private List<UnivInfoDTO> univInfoDTOList;
+    private List<UnivRankDTO> univRankDTOList;
     private final static Logger logger = LoggerFactory.getLogger(UnivInfoRepo.class);
 
     public UnivInfoRepo() {
@@ -105,18 +105,42 @@ public class UnivInfoRepo {
 
             Query InfoQuery = session.createQuery("from UnivInfo as ur where ur.univRank.univName= :univName");
             InfoQuery.setParameter("univName",univRank.getUnivName());
-            UnivInfo univInfo2 = (UnivInfo) InfoQuery.uniqueResult();
-
-            UnivRank univRank2 = univInfo2.getUnivRank();
-            if(univRank2!=null)
-                //TODO refactoring in update statements
-                continue;
-            session.save(univInfo);
+            UnivInfo univInfoTemp = (UnivInfo) InfoQuery.uniqueResult();
+            UnivRank univRankTemp = univInfoTemp.getUnivRank();
+            if(univRankTemp!=null) {
+                updateUnivInfo(univInfoTemp,univInfo);
+            }
+            else
+                session.save(univInfo);
 
         }
         session.getTransaction().commit();
         logger.info("=======successfully saved=======");
 
 
+    }
+
+    private int updateUnivInfo(UnivInfo oldInfo,UnivInfo newInfo) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        int updatedEntities = session.createQuery(
+                "update UnivInfo as ui\n" +
+                        "set ui.address= :newAddress\n" +
+                        ", ui.website= :newWebsite\n" +
+                        ", ui.summary= :newSummary\n" +
+                        "where ui.address = :oldAddress\n"+
+                        "and ui.website = :oldWebsite\n" +
+                        "and ui.summary = :oldSummary" )
+                .setParameter( "newAddress", newInfo.getAddress() )
+                .setParameter( "newWebsite", newInfo.getWebsite() )
+                .setParameter( "newSummary", newInfo.getSummary() )
+                .setParameter( "oldAddress", oldInfo.getAddress() )
+                .setParameter( "oldWebsite", oldInfo.getWebsite() )
+                .setParameter( "oldSummary", oldInfo.getSummary() )
+                .executeUpdate();
+
+        session.getTransaction().commit();
+        return updatedEntities;
     }
 }

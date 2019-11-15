@@ -1,7 +1,5 @@
 package main.java.data;
 
-import main.java.data.UnivRank;
-
 import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
