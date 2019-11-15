@@ -60,15 +60,19 @@ public class HibernateUtil {
         for (UnivRankDTO univRankDTO : univRankDTOList) {
             Query query = session.createQuery("from UnivRank as ur where ur.univName=:univName");
             query.setParameter("univName",univRankDTO.getUnivName());
+            UnivRank univRankTemp =(UnivRank)query.uniqueResult();
             UnivRank univRank = new UnivRank();
-            if(query.uniqueResult()==null) {
+            if((univRankTemp==null)) {
                 univRank.setUnivName(univRankDTO.getUnivName());
                 univRank.setCountry(univRankDTO.getCountry());
                 univRank.setRank(Math.toIntExact(univRankDTO.getRank()));
                 session.save(univRank);
             }
-            else
+            else{
+                logger.info("univname is already exists");
                 continue;
+            }
+
         }
         session.getTransaction().commit();
         logger.info("=======successfully saved=======");

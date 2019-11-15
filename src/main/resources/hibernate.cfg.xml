@@ -12,8 +12,9 @@
         <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.connection.username">sa</property>
         <property name="hibernate.connection.password"></property>
-<!--        <property name="hibernate.show_sql">false</property>-->
-<!--        <property name="hibernate.use_sql_comments">false</property>-->
+        <property name="hibernate.show_sql">false</property>
+        <property name="hibernate.use_sql_comments">false</property>
+        <property name="hibernate.generate_statistics">false</property>
         <mapping class="main.java.data.UnivRank"/>
         <mapping class="main.java.data.UnivInfo"/>
     </session-factory>

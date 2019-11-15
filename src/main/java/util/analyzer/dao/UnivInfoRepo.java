@@ -29,7 +29,7 @@ public class UnivInfoRepo {
         this.univInfoDTOList = univInfoDTOList;
     }
 
-    public UnivInfoRepo( List<UnivInfoDTO> univInfoDTOList, List<UnivRankDTO> univRankDTOList) {
+    public UnivInfoRepo(List<UnivInfoDTO> univInfoDTOList, List<UnivRankDTO> univRankDTOList) {
         this();
         this.univInfoDTOList = univInfoDTOList;
         this.univRankDTOList = univRankDTOList;
@@ -61,8 +61,7 @@ public class UnivInfoRepo {
         session.close();
     }
 
-    public void getAddresses()
-    {
+    public void getAddresses() {
         logger.info("=======loading univ info-address=======");
         Session session = sessionFactory.openSession();
         @SuppressWarnings("unchecked")
@@ -78,25 +77,33 @@ public class UnivInfoRepo {
         session.beginTransaction();
         for (UnivInfoDTO univInfoDTO : univInfoDTOList) {
             UnivInfo univInfo = new UnivInfo();
-            univInfo.setName(univInfoDTO.getName());
-            if(univInfoDTO.getAddress()!=null)
+
+            if (univInfoDTO.getAddress() != null) {
                 univInfo.setAddress(univInfoDTO.getAddress());
-            else
+            } else {
                 univInfo.setAddress("");
-            if(univInfoDTO.getWebsite()!=null)
+            }
+            if (univInfoDTO.getWebsite() != null) {
                 univInfo.setWebsite(univInfoDTO.getWebsite());
-            else
+            } else {
                 univInfo.setWebsite("");
-            if(univInfoDTO.getSummary()!=null)
+            }
+            if (univInfoDTO.getSummary() != null) {
                 univInfo.setSummary(univInfoDTO.getSummary());
-            else
+            } else {
                 univInfo.setSummary("");
-            //TODO
+            }
             Query query = session.createQuery("from UnivRank as ur where ur.univName=:univName");
-            query.setParameter("univName",univInfo.getName());
+            query.setParameter("univName", univInfoDTO.getName());
             UnivRank univRank = (UnivRank) query.uniqueResult();
-            univInfo.setUnivRank(univRank);
+            if (univRank != null)
+                univInfo.setUnivRank(univRank);
+            else {
+                logger.error("univ rank information is not found");
+                continue;
+            }
             session.save(univInfo);
+
         }
         session.getTransaction().commit();
         logger.info("=======successfully saved=======");

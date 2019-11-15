@@ -16,9 +16,6 @@ public class UnivInfo implements Serializable {
     private String info_id;
 
     @Column
-    @Id
-    private String name;
-    @Column
     private String address;
     @Column
     private String website;
@@ -36,14 +33,6 @@ public class UnivInfo implements Serializable {
 
     public void setInfo_id(String info_id) {
         this.info_id = info_id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public String getAddress() {
@@ -82,7 +71,6 @@ public class UnivInfo implements Serializable {
     public String toString() {
         return "UnivInfo{" +
                 "info_id='" + info_id + '\'' +
-                ", name='" + name + '\'' +
                 ", address='" + address + '\'' +
                 ", website='" + website + '\'' +
                 ", summary='" + summary + '\'' +
