@@ -33,14 +33,16 @@ public class UnivRankParser implements Crawler {
     @Override
     public void crawlingSite() throws IOException, InterruptedException {
         for (int i = 1; i <= 10; i++) {
-            String pageUrl = CrawlingConfig.univUrl + "?page=" + i;
+            //TODO modify pageUrl
+            String pageUrl = CrawlingConfig.univUrl;
             crawlingUnivRankPage(pageUrl);
-//            sleep(3000);
+            sleep(3000);
         }
     }
 
     public void crawlingUnivRankPage(String url) throws IOException {
         Document doc = Jsoup.connect(url)
+                //TODO modify userAgent
                 .header("User-Agent", CrawlingConfig.userAgentDefault)
                 .timeout(5000)
                 .get();

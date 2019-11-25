@@ -38,6 +38,7 @@ public class UnivInfoParser implements Crawler {
 
     private void crawlingPage(UnivRankDTO univRankDTO) throws IOException {
         Document doc = Jsoup.connect(univRankDTO.getUnivInfoHref())
+                //TODO modify userAgent
                 .header("User-Agent", CrawlingConfig.userAgentMac)
                 .timeout(5000)
                 .get();
@@ -48,7 +49,8 @@ public class UnivInfoParser implements Crawler {
         Elements elements = doc.select(".directory-data");
         String address = elements.first().select("div").first().text().replaceAll("Address","").trim();
         logger.debug("address: {}",address);
-        String website = elements.eq(1).select("a").attr("href");
+        //TODO retrieve address from DOM
+        String website = elements.text();
         logger.debug("website: {}",website);
 
         Elements SumElements = doc.select(".maincontent .t-slack").eq(3);
