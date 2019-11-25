@@ -1,6 +1,5 @@
 package main.java.util.analyzer.dao;
 
-import main.java.data.UnivRank;
 import main.java.data.UnivRank_;
 import main.java.data.dto.UnivRankDTO;
 import org.hibernate.Session;
@@ -34,7 +33,7 @@ public class UnivRankDAO {
             persist(sessionFactory);
             load(sessionFactory);
         } finally {
-            sessionFactory.close();
+//            sessionFactory.close();
         }
     }
 

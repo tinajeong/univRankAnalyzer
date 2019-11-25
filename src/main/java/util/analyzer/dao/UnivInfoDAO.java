@@ -1,7 +1,5 @@
 package main.java.util.analyzer.dao;
 
-import main.java.data.UnivInfo;
-import main.java.data.UnivRank;
 import main.java.data.dto.UnivInfoDTO;
 import main.java.data.dto.UnivRankDTO;
 import org.hibernate.Session;
@@ -93,11 +91,7 @@ public class UnivInfoDAO {
             logger.info("=======loading univ info-address=======");
             Session session = sessionFactory.openSession();
             @SuppressWarnings("unchecked")
-            Query peopleQuery = session.createQuery("FROM UnivInfo as info WHERE info.address like ?1");
-            peopleQuery.setParameter(1, "%" + searchTerm + "%");;
-            List<UnivInfo> personsList = peopleQuery.list();
-            personsList.forEach((x) -> logger.info("{}", x));
-            session.close();
+            //TODO Implemented getAddress
         } finally {
             sessionFactory.close();
         }
