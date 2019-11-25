@@ -7,6 +7,7 @@ import main.java.util.tsv.parser.UnivRankTsvParser;
 
 public class BrowseDBController {
     public static void main(String[] args) {
+        ///home/migu/git/tsvparser/generated/files/output-univrank06_14_11_2019.tsv /home/migu/git/tsvparser/generated/files/output-univInfo06_14_11_2019.tsv 2
         System.out.println("enter two tsv paths if you want to update DB!\n\tflow 1: read only\n\tflow 2: store and update data from tsv");
         if (args.length < 2) {
             //flow 1: read only
@@ -17,7 +18,6 @@ public class BrowseDBController {
         }
         else {
             //flow 2: store and update data from tsv
-
             UnivRankTsvParser univRankTsvParser = new UnivRankTsvParser();
             univRankTsvParser.setTsvPath(args[0]);
             univRankTsvParser.readTSV();

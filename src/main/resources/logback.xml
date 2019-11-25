@@ -30,6 +30,7 @@
 
     <logger name="main.java.util.analyzer"  level="info" additivity="false">
         <appender-ref ref="FILE" />
+        <appender-ref ref="CONSOLE"/>
     </logger>
 
     <root level="info">

@@ -6,10 +6,8 @@ group 'univ_rank_analyzer'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+mainClassName = 'main.java.MainController'
 
-application {
-    mainClassName = 'main.java.MainController'
-}
 sourceSets {
     main {
         java {
@@ -55,3 +53,19 @@ dependencies {
     compile group: 'org.bgee.log4jdbc-log4j2', name: 'log4jdbc-log4j2-jdbc4.1', version: '1.16'
 
 }
+
+task(runMain, dependsOn: 'classes', type: JavaExec) {
+    main = 'main.java.MainController'
+    classpath = sourceSets.main.runtimeClasspath
+}
+task(runDB, dependsOn: 'classes', type: JavaExec) {
+    main = 'main.java.BrowseDBController'
+    classpath = sourceSets.main.runtimeClasspath
+}
+task(runCrawler, dependsOn: 'classes', type: JavaExec) {
+    main = 'main.java.CrawlingController'
+    classpath = sourceSets.main.runtimeClasspath
+}
+
+
+
