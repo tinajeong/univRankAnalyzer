@@ -16,6 +16,7 @@
 .idea/**/contentModel.xml
 /generated/crawler4j
 /generated/files
+logs
 # Sensitive or high-churn files
 .idea/**/dataSources/
 .idea/**/dataSources.ids

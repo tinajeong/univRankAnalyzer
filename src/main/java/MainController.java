@@ -1,7 +1,7 @@
 package main.java;
 
-import main.java.util.analyzer.dao.UnivRankRepo;
-import main.java.util.analyzer.dao.UnivInfoRepo;
+import main.java.util.analyzer.dao.UnivRankDAO;
+import main.java.util.analyzer.dao.UnivInfoDAO;
 import main.java.util.crawler.UnivInfoParser;
 import main.java.util.crawler.UnivRankParser;
 import main.java.util.tsv.parser.UnivInfoTsvParser;
@@ -42,10 +42,10 @@ public class MainController {
         univInfoTsvParser.readTSV();
 //        univInfoTsvParser.printTSV();
 
-        UnivRankRepo univRankRepo = new UnivRankRepo(univRankTsvParser.getUnivRankList());
-        univRankRepo.accessDB();
-        UnivInfoRepo univInfoRepo = new UnivInfoRepo(univInfoTsvParser.getUnivInfoDTOList());
-        univInfoRepo.accessDB();
+        UnivRankDAO univRankDAO = new UnivRankDAO(univRankTsvParser.getUnivRankList());
+        univRankDAO.accessDB();
+        UnivInfoDAO univInfoDAO = new UnivInfoDAO(univInfoTsvParser.getUnivInfoDTOList());
+        univInfoDAO.accessDB();
     }
 }
 

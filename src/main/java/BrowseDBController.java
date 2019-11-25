@@ -1,33 +1,39 @@
 package main.java;
 
-import main.java.util.analyzer.dao.UnivRankRepo;
-import main.java.util.analyzer.dao.UnivInfoRepo;
+import main.java.util.analyzer.dao.UnivRankDAO;
+import main.java.util.analyzer.dao.UnivInfoDAO;
 import main.java.util.tsv.parser.UnivInfoTsvParser;
 import main.java.util.tsv.parser.UnivRankTsvParser;
 
 public class BrowseDBController {
     public static void main(String[] args) {
-        //flow : store data from tsv
-        UnivRankTsvParser univRankTsvParser = new UnivRankTsvParser();
-        univRankTsvParser.setTsvPath(args[0]);
-        univRankTsvParser.readTSV();
-        univRankTsvParser.printTSV();
+        System.out.println("enter two tsv paths if you want to update DB!\n\tflow 1: read only\n\tflow 2: store and update data from tsv");
+        if (args.length < 2) {
+            //flow 1: read only
+            UnivRankDAO univRankRepo = new UnivRankDAO();
+            univRankRepo.read();
+            UnivInfoDAO univInfoRepo = new UnivInfoDAO();
+            univInfoRepo.read();
+        }
+        else {
+            //flow 2: store and update data from tsv
 
-        UnivRankRepo univRankRepo = new UnivRankRepo(univRankTsvParser.getUnivRankList());
-        univRankRepo.accessDB();
+            UnivRankTsvParser univRankTsvParser = new UnivRankTsvParser();
+            univRankTsvParser.setTsvPath(args[0]);
+            univRankTsvParser.readTSV();
+            univRankTsvParser.printTSV();
 
-        UnivInfoTsvParser univInfoTsvParser = new UnivInfoTsvParser();
-        univInfoTsvParser.setTsvPath(args[1]);
-        univInfoTsvParser.readTSV();
-        univInfoTsvParser.printTSV();
+            UnivRankDAO univRankDAO = new UnivRankDAO(univRankTsvParser.getUnivRankList());
+            univRankDAO.accessDB();
 
-        UnivInfoRepo univInfoRepo = new UnivInfoRepo(univInfoTsvParser.getUnivInfoDTOList());
-        univInfoRepo.accessDB();
+            UnivInfoTsvParser univInfoTsvParser = new UnivInfoTsvParser();
+            univInfoTsvParser.setTsvPath(args[1]);
+            univInfoTsvParser.readTSV();
+            univInfoTsvParser.printTSV();
 
-        //flow : read only
-//        UnivRankRepo univRankRepo = new UnivRankRepo();
-//        univRankRepo.read();
-//        UnivInfoRepo univInfoRepo = new UnivInfoRepo();
-//        univInfoRepo.read();
+            UnivInfoDAO univInfoDAO = new UnivInfoDAO(univInfoTsvParser.getUnivInfoDTOList());
+            univInfoDAO.accessDB();
+        }
     }
+
 }
