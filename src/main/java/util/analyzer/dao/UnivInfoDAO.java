@@ -19,6 +19,30 @@ public class UnivInfoDAO {
     private List<UnivRankDTO> univRankDTOList;
     private final static Logger logger = LoggerFactory.getLogger(UnivInfoDAO.class);
 
+    private int updateUnivInfo(UnivInfo oldInfo, UnivInfo newInfo) {
+        Session session = sessionFactory.openSession();
+        session.beginTransaction();
+
+        int updatedEntities = session.createQuery(
+                "update UnivInfo as ui\n" +
+                        "set ui.address= :newAddress\n" +
+                        ", ui.website= :newWebsite\n" +
+                        ", ui.summary= :newSummary\n" +
+                        "where ui.address = :oldAddress\n" +
+                        "and ui.website = :oldWebsite\n" +
+                        "and ui.summary = :oldSummary")
+                .setParameter("newAddress", newInfo.getAddress())
+                .setParameter("newWebsite", newInfo.getWebsite())
+                .setParameter("newSummary", newInfo.getSummary())
+                .setParameter("oldAddress", oldInfo.getAddress())
+                .setParameter("oldWebsite", oldInfo.getWebsite())
+                .setParameter("oldSummary", oldInfo.getSummary())
+                .executeUpdate();
+
+        session.getTransaction().commit();
+        return updatedEntities;
+    }
+
     public UnivInfoDAO() {
         sessionFactory = new Configuration().configure()
                 .buildSessionFactory();
@@ -51,21 +75,38 @@ public class UnivInfoDAO {
             sessionFactory.close();
         }
     }
+    public void getAddresses() {
+        try {
+            logger.info("=======loading univ info-address=======");
+            Session session = sessionFactory.openSession();
+            @SuppressWarnings("unchecked")
+            List<UnivInfo> persons = session.createQuery("FROM UnivInfo as info WHERE info.address is not null").list();
+            persons.forEach((x) -> logger.info("{}", x));
+            session.close();
+        } finally {
+            sessionFactory.close();
+        }
+    }
 
+    public void getAddresses(String searchTerm) {
+        try {
+            logger.info("=======loading univ info-address=======");
+            Session session = sessionFactory.openSession();
+            @SuppressWarnings("unchecked")
+            Query peopleQuery = session.createQuery("FROM UnivInfo as info WHERE info.address like ?1");
+            peopleQuery.setParameter(1, "%" + searchTerm + "%");;
+            List<UnivInfo> personsList = peopleQuery.list();
+            personsList.forEach((x) -> logger.info("{}", x));
+            session.close();
+        } finally {
+            sessionFactory.close();
+        }
+    }
     private void load(SessionFactory sessionFactory) {
         logger.info("=======loading univ info=======");
         Session session = sessionFactory.openSession();
         @SuppressWarnings("unchecked")
         List<UnivInfo> persons = session.createQuery("FROM UnivInfo").list();
-        persons.forEach((x) -> logger.info("{}", x));
-        session.close();
-    }
-
-    public void getAddresses() {
-        logger.info("=======loading univ info-address=======");
-        Session session = sessionFactory.openSession();
-        @SuppressWarnings("unchecked")
-        List<UnivInfo> persons = session.createQuery("FROM UnivInfo as info WHERE info.address is not null").list();
         persons.forEach((x) -> logger.info("{}", x));
         session.close();
     }
@@ -113,27 +154,4 @@ public class UnivInfoDAO {
 
     }
 
-    private int updateUnivInfo(UnivInfo oldInfo, UnivInfo newInfo) {
-        Session session = sessionFactory.openSession();
-        session.beginTransaction();
-
-        int updatedEntities = session.createQuery(
-                "update UnivInfo as ui\n" +
-                        "set ui.address= :newAddress\n" +
-                        ", ui.website= :newWebsite\n" +
-                        ", ui.summary= :newSummary\n" +
-                        "where ui.address = :oldAddress\n" +
-                        "and ui.website = :oldWebsite\n" +
-                        "and ui.summary = :oldSummary")
-                .setParameter("newAddress", newInfo.getAddress())
-                .setParameter("newWebsite", newInfo.getWebsite())
-                .setParameter("newSummary", newInfo.getSummary())
-                .setParameter("oldAddress", oldInfo.getAddress())
-                .setParameter("oldWebsite", oldInfo.getWebsite())
-                .setParameter("oldSummary", oldInfo.getSummary())
-                .executeUpdate();
-
-        session.getTransaction().commit();
-        return updatedEntities;
-    }
 }

@@ -14,7 +14,7 @@ public class BrowseDBController {
             UnivRankDAO univRankRepo = new UnivRankDAO();
             univRankRepo.read();
             UnivInfoDAO univInfoRepo = new UnivInfoDAO();
-            univInfoRepo.read();
+            univInfoRepo.getAddresses(args[0]);
         }
         else {
             //flow 2: store and update data from tsv
