@@ -14,13 +14,12 @@ import org.slf4j.LoggerFactory;
 import java.util.List;
 
 public class UnivInfoDAO {
-    private SessionFactory sessionFactory;
     private List<UnivInfoDTO> univInfoDTOList;
     private List<UnivRankDTO> univRankDTOList;
     private final static Logger logger = LoggerFactory.getLogger(UnivInfoDAO.class);
 
     private int updateUnivInfo(UnivInfo oldInfo, UnivInfo newInfo) {
-        Session session = sessionFactory.openSession();
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
         int updatedEntities = session.createQuery(
@@ -44,8 +43,6 @@ public class UnivInfoDAO {
     }
 
     public UnivInfoDAO() {
-        sessionFactory = new Configuration().configure()
-                .buildSessionFactory();
     }
 
     public UnivInfoDAO(List<UnivInfoDTO> univInfoDTOList) {
@@ -60,38 +57,33 @@ public class UnivInfoDAO {
     }
 
     public void accessDB() {
-        try {
-            persist(sessionFactory);
-            load(sessionFactory);
-        } finally {
-            sessionFactory.close();
-        }
+            persist();
+            load();
+
     }
 
     public void read() {
-        try {
-            load(sessionFactory);
-        } finally {
-            sessionFactory.close();
-        }
+
+            load();
+
     }
     public void getAddresses() {
         try {
             logger.info("=======loading univ info-address=======");
-            Session session = sessionFactory.openSession();
+            Session session = HibernateSessionFactory.getSessionFactory().openSession();
             @SuppressWarnings("unchecked")
             List<UnivInfo> persons = session.createQuery("FROM UnivInfo as info WHERE info.address is not null").list();
             persons.forEach((x) -> logger.info("{}", x));
             session.close();
         } finally {
-            sessionFactory.close();
+            HibernateSessionFactory.getSessionFactory().close();
         }
     }
 
     public void getAddresses(String searchTerm) {
         try {
             logger.info("=======loading univ info-address=======");
-            Session session = sessionFactory.openSession();
+            Session session = HibernateSessionFactory.getSessionFactory().openSession();
             @SuppressWarnings("unchecked")
             Query peopleQuery = session.createQuery("FROM UnivInfo as info WHERE info.address like ?1");
             peopleQuery.setParameter(1, "%" + searchTerm + "%");;
@@ -99,22 +91,22 @@ public class UnivInfoDAO {
             personsList.forEach((x) -> logger.info("{}", x));
             session.close();
         } finally {
-            sessionFactory.close();
+            HibernateSessionFactory.getSessionFactory().close();
         }
     }
-    private void load(SessionFactory sessionFactory) {
+    private void load() {
         logger.info("=======loading univ info=======");
-        Session session = sessionFactory.openSession();
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
         @SuppressWarnings("unchecked")
         List<UnivInfo> persons = session.createQuery("FROM UnivInfo").list();
         persons.forEach((x) -> logger.info("{}", x));
         session.close();
     }
 
-    private void persist(SessionFactory sessionFactory) {
+    private void persist() {
         logger.info("=======persisting univ info=======");
 
-        Session session = sessionFactory.openSession();
+        Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
         for (UnivInfoDTO univInfoDTO : univInfoDTOList) {
             UnivInfo univInfo = new UnivInfo();

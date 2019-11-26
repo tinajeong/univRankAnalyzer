@@ -15,23 +15,23 @@ import java.util.ArrayList;
 import static java.lang.Thread.sleep;
 
 public class UnivInfoParser implements Crawler {
-    ArrayList<UnivRankDTO> univList;
-    ArrayList<UnivInfoDTO> univInfoList;
+    ArrayList<UnivRankDTO> univRankDTOS;
+    ArrayList<UnivInfoDTO> univInfoDTOS;
     private final static Logger logger = LoggerFactory.getLogger(UnivInfoParser.class);
 
     public UnivInfoParser() {
-        univList = new ArrayList<>();
-        univInfoList = new ArrayList<>();
+        univRankDTOS = new ArrayList<>();
+        univInfoDTOS = new ArrayList<>();
     }
 
-    public UnivInfoParser(ArrayList<UnivRankDTO> univList) {
+    public UnivInfoParser(ArrayList<UnivRankDTO> univRankDTOS) {
         this();
-        this.univList = univList;
+        this.univRankDTOS = univRankDTOS;
     }
 
     @Override
     public void crawlingSite() throws IOException, InterruptedException {
-        for (UnivRankDTO univRankDTO : univList) {
+        for (UnivRankDTO univRankDTO : univRankDTOS) {
             crawlingPage(univRankDTO);
             sleep(10);
         }
@@ -41,6 +41,7 @@ public class UnivInfoParser implements Crawler {
         Document doc = Jsoup.connect(univRankDTO.getUnivInfoHref())
                 .header("User-Agent", CrawlingConfig.userAgentMac)
                 .timeout(3000)
+                .maxBodySize(Integer.MAX_VALUE)
                 .get();
 
         UnivInfoDTO univInfoDTO = new UnivInfoDTO();
@@ -56,34 +57,36 @@ public class UnivInfoParser implements Crawler {
         String summary = null;
         if (!SumElements.select("h2").isEmpty()) {
             summary = SumElements.select("div").first().text().replace("Summary", "").trim();
+            logger.debug("summary: {}", summary);
         } else
             logger.debug("summary is empty");
 
         univInfoDTO.setAddress(address);
         univInfoDTO.setWebsite(website);
         univInfoDTO.setSummary(summary);
-        univInfoList.add(univInfoDTO);
+
+        univInfoDTOS.add(univInfoDTO);
     }
 
 
-    public ArrayList<UnivRankDTO> getUnivList() {
-        return univList;
+    public ArrayList<UnivRankDTO> getUnivRankDTOS() {
+        return univRankDTOS;
     }
 
-    public void setUnivList(ArrayList<UnivRankDTO> univList) {
-        this.univList = univList;
+    public void setUnivRankDTOS(ArrayList<UnivRankDTO> univRankDTOS) {
+        this.univRankDTOS = univRankDTOS;
     }
 
-    public ArrayList<UnivInfoDTO> getUnivInfoList() {
-        return univInfoList;
+    public ArrayList<UnivInfoDTO> getUnivInfoDTOS() {
+        return univInfoDTOS;
     }
 
-    public void setUnivInfoList(ArrayList<UnivInfoDTO> univInfoList) {
-        this.univInfoList = univInfoList;
+    public void setUnivInfoDTOS(ArrayList<UnivInfoDTO> univInfoDTOS) {
+        this.univInfoDTOS = univInfoDTOS;
     }
 
     public void traverseList() {
-        univInfoList.forEach(univInfoDTO -> {
+        univInfoDTOS.forEach(univInfoDTO -> {
             logger.info("{}\n\t-{}\n\t-{}\n\t-{}", univInfoDTO.getName(), univInfoDTO.getAddress(), univInfoDTO.getWebsite(), univInfoDTO.getSummary());
         });
     }

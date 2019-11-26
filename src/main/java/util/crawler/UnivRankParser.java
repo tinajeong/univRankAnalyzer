@@ -15,19 +15,19 @@ import java.util.ArrayList;
 import static java.lang.Thread.sleep;
 
 public class UnivRankParser implements Crawler {
-    ArrayList<UnivRankDTO> univList;
+    ArrayList<UnivRankDTO> univRankDTOS;
     private final static Logger logger = LoggerFactory.getLogger(UnivRankParser.class);
 
     public UnivRankParser() {
-        univList = new ArrayList<>();
+        univRankDTOS = new ArrayList<>();
     }
 
-    public ArrayList<UnivRankDTO> getUnivList() {
-        return univList;
+    public ArrayList<UnivRankDTO> getUnivRankDTOS() {
+        return univRankDTOS;
     }
 
-    public void setUnivList(ArrayList<UnivRankDTO> univList) {
-        this.univList = univList;
+    public void setUnivRankDTOS(ArrayList<UnivRankDTO> univRankDTOS) {
+        this.univRankDTOS = univRankDTOS;
     }
 
     @Override
@@ -42,26 +42,30 @@ public class UnivRankParser implements Crawler {
     public void crawlingUnivRankPage(String url) throws IOException {
         Document doc = Jsoup.connect(url)
                 .header("User-Agent", CrawlingConfig.userAgentDefault)
-                .timeout(5000)
+                .timeout(3000)
+                .maxBodySize(Integer.MAX_VALUE)
                 .get();
 
         Elements elements = doc.select("#resultsMain .sep");
-//        System.out.println(elements);
 
         for (Element element : elements) {
             UnivRankDTO univRankDTO = new UnivRankDTO();
+
             Long rank = Long.parseLong(element.child(1).text().substring(1).replaceAll("[^0-9]", ""));
             univRankDTO.setRank(rank);
+
             String univName = element.child(2).select(".h-taut a").text().replaceAll("[^A-Za-z ]"," ").trim();
+
             univRankDTO.setUnivName(univName);
             univRankDTO.setCountry(element.child(2).select(".t-taut span").first().text());
             univRankDTO.setUnivInfoHref(element.child(2).select(".h-taut a").attr("href"));
-            univList.add(univRankDTO);
+
+            univRankDTOS.add(univRankDTO);
         }
     }
 
     public void traverseUnivList() {
-        for (UnivRankDTO univRankDTO : univList)
+        for (UnivRankDTO univRankDTO : univRankDTOS)
             System.out.println(univRankDTO.getRank() + ":" + univRankDTO.getUnivName() + " in " + univRankDTO.getCountry());
     }
 }

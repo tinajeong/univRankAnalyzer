@@ -1,7 +1,6 @@
 package main.java;
 
-import main.java.util.analyzer.dao.UnivRankDAO;
-import main.java.util.analyzer.dao.UnivInfoDAO;
+import main.java.util.analyzer.dao.HibernateSessionFactory;
 import main.java.util.crawler.UnivInfoParser;
 import main.java.util.crawler.UnivRankParser;
 import main.java.util.tsv.parser.UnivInfoTsvParser;
@@ -20,12 +19,12 @@ public class MainController {
         univRankParser.traverseUnivList();
 
         UnivInfoParser univInfoParser = new UnivInfoParser();
-        univInfoParser.setUnivList(univRankParser.getUnivList());
+        univInfoParser.setUnivRankDTOS(univRankParser.getUnivRankDTOS());
         univInfoParser.crawlingSite();
 //        univInfoParser.traverseList();
 
         UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
-        univRankTsvWriter.setCrawledList(univRankParser.getUnivList());
+        univRankTsvWriter.setCrawledList(univRankParser.getUnivRankDTOS());
         univRankTsvWriter.writeTSVWithTime();
 
         UnivRankTsvParser univRankTsvParser = new UnivRankTsvParser();
@@ -34,7 +33,7 @@ public class MainController {
 //        univRankTsvParser.printTSV();
 
         UnivInfoTsvWriter univInfoTsvWriter = new UnivInfoTsvWriter();
-        univInfoTsvWriter.setUnivInfoDTOList(univInfoParser.getUnivInfoList());
+        univInfoTsvWriter.setUnivInfoDTOList(univInfoParser.getUnivInfoDTOS());
         univInfoTsvWriter.writeTSVWithTime();
 
         UnivInfoTsvParser univInfoTsvParser = new UnivInfoTsvParser();
@@ -46,6 +45,8 @@ public class MainController {
 //        univRankDAO.accessDB();
 //        UnivInfoDAO univInfoDAO = new UnivInfoDAO(univInfoTsvParser.getUnivInfoDTOList());
 //        univInfoDAO.accessDB();
+
+        HibernateSessionFactory.shutdown();
     }
 }
 
