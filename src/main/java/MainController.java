@@ -42,10 +42,10 @@ public class MainController {
         univInfoTsvParser.readTSV();
 //        univInfoTsvParser.printTSV();
 
-        UnivRankDAO univRankDAO = new UnivRankDAO(univRankTsvParser.getUnivRankList());
-        univRankDAO.accessDB();
-        UnivInfoDAO univInfoDAO = new UnivInfoDAO(univInfoTsvParser.getUnivInfoDTOList());
-        univInfoDAO.accessDB();
+//        UnivRankDAO univRankDAO = new UnivRankDAO(univRankTsvParser.getUnivRankList());
+//        univRankDAO.accessDB();
+//        UnivInfoDAO univInfoDAO = new UnivInfoDAO(univInfoTsvParser.getUnivInfoDTOList());
+//        univInfoDAO.accessDB();
     }
 }
 

@@ -18,6 +18,7 @@ public class UnivInfoParser implements Crawler {
     ArrayList<UnivRankDTO> univList;
     ArrayList<UnivInfoDTO> univInfoList;
     private final static Logger logger = LoggerFactory.getLogger(UnivInfoParser.class);
+
     public UnivInfoParser() {
         univList = new ArrayList<>();
         univInfoList = new ArrayList<>();
@@ -39,25 +40,23 @@ public class UnivInfoParser implements Crawler {
     private void crawlingPage(UnivRankDTO univRankDTO) throws IOException {
         Document doc = Jsoup.connect(univRankDTO.getUnivInfoHref())
                 .header("User-Agent", CrawlingConfig.userAgentMac)
-                .timeout(5000)
+                .timeout(3000)
                 .get();
 
         UnivInfoDTO univInfoDTO = new UnivInfoDTO();
         univInfoDTO.setName(univRankDTO.getUnivName());
 
         Elements elements = doc.select(".directory-data");
-        String address = elements.first().select("div").first().text().replaceAll("Address","").trim();
-        logger.debug("address: {}",address);
+        String address = elements.first().select("div").first().text().replaceAll("Address", "").trim();
+        logger.debug("address: {}", address);
         String website = elements.eq(1).select("a").attr("href");
-        logger.debug("website: {}",website);
+        logger.debug("website: {}", website);
 
         Elements SumElements = doc.select(".maincontent .t-slack").eq(3);
-        String summary=null;
-        if(!SumElements.select("h2").isEmpty()) {
-            summary = SumElements.select("div").text().replaceAll("Summary","").trim();
-            logger.debug("summary: {}", summary);
-        }
-        else
+        String summary = null;
+        if (!SumElements.select("h2").isEmpty()) {
+            summary = SumElements.select("div").first().text().replace("Summary", "").trim();
+        } else
             logger.debug("summary is empty");
 
         univInfoDTO.setAddress(address);
@@ -85,7 +84,7 @@ public class UnivInfoParser implements Crawler {
 
     public void traverseList() {
         univInfoList.forEach(univInfoDTO -> {
-            logger.info("{}\n\t-{}\n\t-{}\n\t-{}",univInfoDTO.getName(),univInfoDTO.getAddress(),univInfoDTO.getWebsite(),univInfoDTO.getSummary());
+            logger.info("{}\n\t-{}\n\t-{}\n\t-{}", univInfoDTO.getName(), univInfoDTO.getAddress(), univInfoDTO.getWebsite(), univInfoDTO.getSummary());
         });
     }
 }
