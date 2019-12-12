@@ -96,6 +96,7 @@ public class UnivInfoDAO {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         @SuppressWarnings("unchecked")
         List<UnivInfo> persons = session.createQuery("FROM UnivInfo").list();
+        logger.info("number of rows: {}",persons.size());
         persons.forEach((x) -> logger.info("{}", x));
         session.close();
     }

@@ -41,6 +41,7 @@ public class UnivRankDAO {
 
         @SuppressWarnings("unchecked")
         List<UnivRank> persons = session.createQuery("FROM UnivRank").list();
+        logger.info("number of rows: {}",persons.size());
         persons.forEach(x -> logger.info("{}", x));
 
         session.close();

@@ -6,7 +6,7 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name="univ_info")
+@Table(name="UNIV_INFO")
 public class UnivInfo implements Serializable {
 
     @Id
@@ -23,7 +23,7 @@ public class UnivInfo implements Serializable {
     @Column(columnDefinition="clob")
     private String summary;
 
-    @ManyToOne(targetEntity = UnivRank.class,fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = UnivRank.class,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     @JoinColumn(name="univName")
     private UnivRank univRank;
 
