@@ -24,14 +24,14 @@ public class UnivRankDAO {
         this.univRankDTOList = univRankDTOList;
     }
 
-    public void accessDB() {
-            persist();
-            load();
+    public void storeAndRead() {
+        persist();
+        load();
 
     }
 
     public void read() {
-            load();
+        load();
     }
 
     private void load() {
@@ -41,34 +41,34 @@ public class UnivRankDAO {
 
         @SuppressWarnings("unchecked")
         List<UnivRank> persons = session.createQuery("FROM UnivRank").list();
-        persons.forEach((x) -> logger.info("{}", x));
+        persons.forEach(x -> logger.info("{}", x));
 
         session.close();
     }
 
-    private void persist( ) {
+    private void persist() {
         logger.info("=======persisting univ ranks=======");
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
         for (UnivRankDTO univRankDTO : univRankDTOList) {
 //            CriteriaQuery supports type-safe
-            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<UnivRank> criteriaQuery = criteriaBuilder.createQuery(UnivRank.class);
-            Root<UnivRank> root = criteriaQuery.from(UnivRank.class);
-            criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(UnivRank_.univName), univRankDTO.getUnivName()));
-            UnivRank univRankTemp = session.createQuery(criteriaQuery).uniqueResult();
+//            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+//            CriteriaQuery<UnivRank> criteriaQuery = criteriaBuilder.createQuery(UnivRank.class);
+//            Root<UnivRank> root = criteriaQuery.from(UnivRank.class);
+//            criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(UnivRank_.univName), univRankDTO.getUnivName()));
+//            UnivRank univRankTemp = session.createQuery(criteriaQuery).uniqueResult();
 
-            univRankTemp =session.get(UnivRank.class,univRankDTO.getUnivName());
+            UnivRank univRankTemp = session.get(UnivRank.class, univRankDTO.getUnivName());
             UnivRank univRank = new UnivRank();
-            int tempRank =Math.toIntExact(univRankDTO.getRank());
+            int tempRank = Math.toIntExact(univRankDTO.getRank());
             if ((univRankTemp == null)) {
                 univRank.setUnivName(univRankDTO.getUnivName());
                 univRank.setCountry(univRankDTO.getCountry());
                 univRank.setRank(tempRank);
                 session.save(univRank);
             } else {
-                updateRank(univRankTemp.getRank(),tempRank);
+                updateRank(univRankTemp.getRank(), tempRank);
             }
 
         }
@@ -76,23 +76,24 @@ public class UnivRankDAO {
         session.getTransaction().commit();
         logger.info("=======successfully saved=======");
     }
-    private int updateRank(int oldRank, int newRank)
-    {
+
+    private int updateRank(int oldRank, int newRank) {
         Session session = HibernateSessionFactory.getSessionFactory().openSession();
         session.beginTransaction();
 
         int updatedEntities = session.createQuery(
                 "update UnivRank as ur\n" +
                         "set ur.rank= :newRank\n" +
-                        "where ur.rank = :oldRank" )
-                .setParameter( "oldRank", oldRank )
-                .setParameter( "newRank", newRank )
+                        "where ur.rank = :oldRank")
+                .setParameter("oldRank", oldRank)
+                .setParameter("newRank", newRank)
                 .executeUpdate();
 
         session.getTransaction().commit();
 
         return updatedEntities;
     }
+
     public List<UnivRankDTO> getUnivRankDTOList() {
         return univRankDTOList;
     }

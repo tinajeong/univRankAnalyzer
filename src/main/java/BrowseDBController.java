@@ -24,7 +24,7 @@ public class BrowseDBController {
             univRankTsvParser.printTSV();
 
             UnivRankDAO univRankDAO = new UnivRankDAO(univRankTsvParser.getUnivRankList());
-            univRankDAO.accessDB();
+            univRankDAO.storeAndRead();
 
             UnivInfoTsvParser univInfoTsvParser = new UnivInfoTsvParser();
             univInfoTsvParser.setTsvPath(args[1]);
@@ -32,7 +32,7 @@ public class BrowseDBController {
             univInfoTsvParser.printTSV();
 
             UnivInfoDAO univInfoDAO = new UnivInfoDAO(univInfoTsvParser.getUnivInfoDTOList());
-            univInfoDAO.accessDB();
+            univInfoDAO.storeAndRead();
         }
     }
 

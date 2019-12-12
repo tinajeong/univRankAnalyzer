@@ -50,8 +50,7 @@ public class UnivRankParser implements Crawler {
 
         for (Element element : elements) {
             UnivRankDTO univRankDTO = new UnivRankDTO();
-
-            Long rank = Long.parseLong(element.child(1).text().substring(1).replaceAll("[^0-9]", ""));
+            Long rank = Long.parseLong(element.select(".rankscore-bronze").text().replaceAll("[^0-9]", ""));
             univRankDTO.setRank(rank);
 
             String univName = element.child(2).select(".h-taut a").text().replaceAll("[^A-Za-z ]"," ").trim();

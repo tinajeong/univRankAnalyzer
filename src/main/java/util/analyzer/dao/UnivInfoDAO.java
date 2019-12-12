@@ -56,16 +56,13 @@ public class UnivInfoDAO {
         this.univRankDTOList = univRankDTOList;
     }
 
-    public void accessDB() {
+    public void storeAndRead() {
             persist();
             load();
-
     }
 
     public void read() {
-
             load();
-
     }
     public void getAddresses() {
         try {

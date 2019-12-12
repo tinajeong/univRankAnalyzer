@@ -1,6 +1,8 @@
 package main.java;
 
 import main.java.util.analyzer.dao.HibernateSessionFactory;
+import main.java.util.analyzer.dao.UnivInfoDAO;
+import main.java.util.analyzer.dao.UnivRankDAO;
 import main.java.util.crawler.UnivInfoParser;
 import main.java.util.crawler.UnivRankParser;
 import main.java.util.tsv.parser.UnivInfoTsvParser;
@@ -21,7 +23,7 @@ public class MainController {
         UnivInfoParser univInfoParser = new UnivInfoParser();
         univInfoParser.setUnivRankDTOS(univRankParser.getUnivRankDTOS());
         univInfoParser.crawlingSite();
-//        univInfoParser.traverseList();
+        univInfoParser.traverseList();
 
         UnivRankTsvWriter univRankTsvWriter = new UnivRankTsvWriter();
         univRankTsvWriter.setCrawledList(univRankParser.getUnivRankDTOS());
@@ -30,7 +32,7 @@ public class MainController {
         UnivRankTsvParser univRankTsvParser = new UnivRankTsvParser();
         univRankTsvParser.setTsvPath(univRankTsvWriter.getTsvPath());
         univRankTsvParser.readTSV();
-//        univRankTsvParser.printTSV();
+        univRankTsvParser.printTSV();
 
         UnivInfoTsvWriter univInfoTsvWriter = new UnivInfoTsvWriter();
         univInfoTsvWriter.setUnivInfoDTOList(univInfoParser.getUnivInfoDTOS());
@@ -39,12 +41,12 @@ public class MainController {
         UnivInfoTsvParser univInfoTsvParser = new UnivInfoTsvParser();
         univInfoTsvParser.setTsvPath(univInfoTsvWriter.getTsvPath());
         univInfoTsvParser.readTSV();
-//        univInfoTsvParser.printTSV();
+        univInfoTsvParser.printTSV();
 
-//        UnivRankDAO univRankDAO = new UnivRankDAO(univRankTsvParser.getUnivRankList());
-//        univRankDAO.accessDB();
-//        UnivInfoDAO univInfoDAO = new UnivInfoDAO(univInfoTsvParser.getUnivInfoDTOList());
-//        univInfoDAO.accessDB();
+        UnivRankDAO univRankDAO = new UnivRankDAO(univRankTsvParser.getUnivRankList());
+        univRankDAO.storeAndRead();
+        UnivInfoDAO univInfoDAO = new UnivInfoDAO(univInfoTsvParser.getUnivInfoDTOList());
+        univInfoDAO.storeAndRead();
 
         HibernateSessionFactory.shutdown();
     }
