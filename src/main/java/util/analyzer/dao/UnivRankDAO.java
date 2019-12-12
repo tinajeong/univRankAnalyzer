@@ -52,7 +52,25 @@ public class UnivRankDAO {
         session.beginTransaction();
 
         for (UnivRankDTO univRankDTO : univRankDTOList) {
-            //TODO
+//            CriteriaQuery supports type-safe
+//            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+//            CriteriaQuery<UnivRank> criteriaQuery = criteriaBuilder.createQuery(UnivRank.class);
+//            Root<UnivRank> root = criteriaQuery.from(UnivRank.class);
+//            criteriaQuery.select(root).where(criteriaBuilder.equal(root.get(UnivRank_.univName), univRankDTO.getUnivName()));
+//            UnivRank univRankTemp = session.createQuery(criteriaQuery).uniqueResult();
+
+            UnivRank univRankTemp = session.get(UnivRank.class, univRankDTO.getUnivName());
+            UnivRank univRank = new UnivRank();
+            int tempRank = Math.toIntExact(univRankDTO.getRank());
+            if ((univRankTemp == null)) {
+                univRank.setUnivName(univRankDTO.getUnivName());
+                univRank.setCountry(univRankDTO.getCountry());
+                univRank.setRank(tempRank);
+                session.save(univRank);
+            } else {
+                updateRank(univRankTemp.getRank(), tempRank);
+            }
+
         }
 
         session.getTransaction().commit();
