@@ -33,7 +33,7 @@
 
 **IntelliJ Ultimate Version**
 
-Eclipse나 IntelliJ Community 버전도 가능하지만, ultimate version 기준으로 문서를 작성하였기 때문에 각종 플러그인을 설치하고 세팅하는데 시간이 걸립니다.
+Eclipse나 IntelliJ Community 버전도 가능하지만, ultimate version 기준으로 문서를 작성하였음을 알려드립니다.
 
 학생은 1년간 무료로 사용할 수 있습니다.[관련포스팅](https://whitepaek.tistory.com/6)을 참고하세요.
 
@@ -43,7 +43,7 @@ git이 설치 되어서 bash shell을 이용할 수 있어야 합니다. 없다�
 
 **비판적 사고**
 
-이 프로젝트는 발전 가능성을 생각하고 만들었습니다. 모범답안이 아니니 마구 고치세요.  
+이 프로젝트는 발전 가능성을 생각하고 만들었습니다. 모범답안이 아니니 fork마구 고치세요.  
 
 # Start from this commit
 
